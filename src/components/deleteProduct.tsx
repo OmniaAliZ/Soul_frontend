@@ -37,7 +37,7 @@ export function DeleteProduct({ product }: { product: Product }) {
         <DialogHeader>
           <DialogTitle>Delete Product</DialogTitle>
           <DialogDescription>
-            Are you absolutely sure you want to dekete {product.name} ?
+            Are you absolutely sure you want to delete {product.name} ?
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -45,7 +45,7 @@ export function DeleteProduct({ product }: { product: Product }) {
             <Label htmlFor="name">
               This action can not be undone.
               <br />
-              This will permanently delete your product and remove it from server.
+              This will permanently delete your product and remove it from the server.
             </Label>
           </div>
         </div>
