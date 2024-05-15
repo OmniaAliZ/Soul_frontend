@@ -1,6 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import "./App.css"
 import { Home } from "./pages/home"
+import { Dashboard } from "./pages/dashboard"
+import { ProductDetails } from "./pages/productDetails"
 
 const router = createBrowserRouter([
   {
@@ -9,7 +11,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/products/:id",
-    element: <Home /> //ProductDetails
+    element: <ProductDetails />
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />
   }
 ])
 
@@ -17,7 +23,6 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
-      <Home />
     </div>
   )
 }

@@ -3,6 +3,7 @@
 // import { useQuery } from "@tanstack/react-query"
 
 import { AddProduct } from "@/components/addProduct"
+import { ProductTable } from "@/components/productsTable"
 
 export function Dashboard() {
   //   const getUsers = async () => {
@@ -21,6 +22,7 @@ export function Dashboard() {
   return (
     <>
       <AddProduct />
+      <ProductTable />
     </>
   )
 }
