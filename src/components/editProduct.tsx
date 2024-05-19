@@ -11,11 +11,32 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Product } from "@/types"
-import { useQueryClient } from "@tanstack/react-query"
+import { Category, Product } from "@/types"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ChangeEvent, useState } from "react"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select"
 
-export function EditProduct({ product }: { product: Product }) {
+export function EditProduct({ product }: { product: Product}) {
+  if (!product) throw Error("No product edit")
+  const getCategories = async () => {
+    try {
+      const res = await api.get("/categories")
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+  const { data } = useQuery<Category[]>({
+    queryKey: ["categories"],
+    queryFn: getCategories
+  })
   const queryClient = useQueryClient()
   const [updatedProduct, setUpdatedProduct] = useState(product)
 
@@ -35,6 +56,10 @@ export function EditProduct({ product }: { product: Product }) {
   const handleUpdate = async () => {
     await patchProduct()
     queryClient.invalidateQueries({ queryKey: ["products"] })
+  }
+  const handleCategory = (value: string) => {
+    console.log(value)
+    setUpdatedProduct({ ...updatedProduct, categoryId: value })
   }
   return (
     <Dialog>
@@ -72,18 +97,37 @@ export function EditProduct({ product }: { product: Product }) {
               className="col-span-3"
               onChange={handleChange}
             />
+          </div><div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="quantity" className="text-right">
+              Quantity
+            </Label>
+            <Input
+              id="quantity"
+              name="quantity"
+              defaultValue={product.quantity}
+              className="col-span-3"
+              onChange={handleChange}
+            />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="categoryId" className="text-right">
               Category
             </Label>
-            <Input
-              id="categoryId"
-              name="categoryId"
-              defaultValue={product.categoryId}
-              className="col-span-3"
-              onChange={handleChange}
-            />
+
+            <Select defaultValue={product.categoryId} onValueChange={handleCategory}>
+              <SelectTrigger className="col-span-3" name="categoryId">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                {data?.map((category: Category) => {
+                  return (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  )
+                })}
+              </SelectContent>
+            </Select>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="description" className="text-right">

@@ -1,18 +1,19 @@
+import { GlobalContext } from "@/App"
 import api from "@/api"
+import { NavBar } from "@/components/navBar"
+import { Hero } from "@/components/hero"
+import { Search } from "@/components/search"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Product } from "@/types"
 import { useQuery } from "@tanstack/react-query"
+import { useContext } from "react"
 import { Link } from "react-router-dom"
 
 export function Home() {
+  const provider = useContext(GlobalContext)
+  if (!provider) throw Error("Context is missing")
+  const { handleAddToCart } = provider //state?
   const getProducts = async () => {
     try {
       const res = await api.get("/products")
@@ -29,8 +30,11 @@ export function Home() {
   })
   return (
     <>
+      <NavBar />
+      {/* <Hero /> */}
       <h1 className="text-2xl uppercase mb-10">Products</h1>
-
+      <Search />
+      {data?.length === 0 && <p>NO PRODUCTS FOUND</p>}
       <section className="flex flex-col md:flex-row gap-4 justify-between max-w-6xl mx-auto flex-wrap">
         {data?.map((product) => (
           <Card key={product.id} className="w-[350px]">
@@ -51,7 +55,9 @@ export function Home() {
             </CardContent>
             <CardFooter className="flex flex-col">
               <Link to={`products/${product.id}`}>View Details</Link>
-              <Button className="w-full">Add to cart</Button>
+              <Button className="w-full" onClick={() => handleAddToCart(product)}>
+                Add to cart
+              </Button>
             </CardFooter>
           </Card>
         ))}

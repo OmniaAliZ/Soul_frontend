@@ -11,6 +11,7 @@ import {
   Select
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
+import { NavBar } from "@/components/navBar"
 
 export function ProductDetails() {
   const { id } = useParams<string>()
@@ -41,6 +42,7 @@ export function ProductDetails() {
 
   return (
     <>
+    <NavBar/>
       <div className="grid md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto py-6">
         <div className="grid gap-4 md:gap-10 items-start">
           <div className="grid gap-4">
@@ -84,7 +86,7 @@ export function ProductDetails() {
         </div>
       </div>
 
-      {/*  */}
+      {/*  view products under */}
 
       <section className="w-full py-12">
         <div className="container grid gap-6 md:gap-8 px-4 md:px-6">
@@ -103,7 +105,7 @@ export function ProductDetails() {
                 alt="Cozy Blanket"
                 className="rounded-lg object-cover w-full aspect-square group-hover:opacity-50 transition-opacity"
                 height={200}
-                src="/placeholder.svg"
+                src="https://static.vecteezy.com/system/resources/previews/014/212/681/original/female-user-profile-avatar-is-a-woman-a-character-for-a-screen-saver-with-emotions-for-website-and-mobile-app-design-illustration-on-a-white-isolated-background-vector.jpg"
                 width={200}
               />
               <div className="flex-1 py-4">

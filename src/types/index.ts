@@ -36,3 +36,11 @@ export type Order = {
   orderDate: Date //?
   totalPrice: number
 }
+// export type ProductWithCat = {
+//   id: string
+//   name: string
+//   categoryId: string
+//   image: string
+//   price: string
+//   quantity: string
+//   descript

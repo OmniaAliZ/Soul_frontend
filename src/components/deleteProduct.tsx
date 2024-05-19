@@ -14,6 +14,7 @@ import { Product } from "@/types"
 import { useQueryClient } from "@tanstack/react-query"
 
 export function DeleteProduct({ product }: { product: Product }) {
+  if(!product) throw Error("No product delete")
   const deleteProduct = async () => {
     try {
       const res = await api.delete(`/products/${product.id}`)
@@ -37,7 +38,7 @@ export function DeleteProduct({ product }: { product: Product }) {
         <DialogHeader>
           <DialogTitle>Delete Product</DialogTitle>
           <DialogDescription>
-            Are you absolutely sure you want to delete {product.name} ?
+            Are you absolutely sure you want to delete <b>{product.name}</b> ?
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

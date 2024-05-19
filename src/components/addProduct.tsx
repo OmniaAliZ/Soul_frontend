@@ -14,20 +14,16 @@ import {
 
 export function AddProduct() {
   const queryClient = useQueryClient()
+
   const [product, setProduct] = useState({
     name: "",
-    categoryId: "",
+    categoryId: "3fa85f64-5717-4562-b3fc-2c963f66af16",
     image: "",
     quantity: "",
     price: "",
     description: ""
   })
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    console.log(name, value)
-    setProduct({ ...product, [name]: value })
-  }
-  //
+
   const getCategories = async () => {
     try {
       const res = await api.get("/categories")
@@ -37,50 +33,67 @@ export function AddProduct() {
       return Promise.reject(new Error("Something went wrong"))
     }
   }
-  const { data, error } = useQuery<Category[]>({
-    queryKey: ["categories"],
-    queryFn: getCategories
-  })
-  //   let firstCategory
-  //   if (data) {
-  //     firstCategory = data[0].id
-  //   } else {
-  //     firstCategory = "jdkh"
-  //   }
-  //
   const postProduct = async () => {
     try {
       const res = await api.post("/products", product)
       return res.data
+      console.log(res.data)
     } catch (error) {
       console.error(error)
       return Promise.reject(new Error("Something went wrong"))
     }
   }
 
+  const { data } = useQuery<Category[]>({
+    queryKey: ["categories"],
+    queryFn: getCategories
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    console.log(name, value)
+    setProduct({ ...product, [name]: value })
+  }
+  const handleCategory = (value: string) => {
+    console.log(value)
+    setProduct({ ...product, categoryId: value })
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     await postProduct()
-    console.log(product)
-
+    await handleReset()
     queryClient.invalidateQueries({ queryKey: ["products"] })
   }
+  const handleReset = async () => {
+    setProduct({
+      name: "",
+      categoryId: "3fa85f64-5717-4562-b3fc-2c963f66af16",
+      image: "",
+      quantity: "",
+      price: "",
+      description: ""
+    })
+  }
+
+  // const productWithCat = product?.map((product)=> {
+  //     const category = categories.find((cat)=>cat.id === product.categoryId)
+  //     if(category){
+  //         return {
+  //             ...product,
+  //             categoryName: category.name
+  //         }
+  //     }
+  // })
   return (
     <>
-      <form className="mt-20 w-1/2 mx-auto" onSubmit={handleSubmit}>
+      <form className="w-1/2 mx-auto" onSubmit={handleSubmit}>
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
           Add new product
         </h2>
-        {/* <Input
-          name="categoryId"
-          className="mt-5"
-          type="text"
-          placeholder="Category"
-          onChange={handleChange}
-        /> */}
-        <Select defaultValue="3fa85f64-5717-4562-b3fc-2c963f66af16" name="categoryId">
-          <SelectTrigger className="mt-5">
-            <SelectValue placeholder="Category" onChange={handleChange} />
+
+        <Select defaultValue="3fa85f64-5717-4562-b3fc-2c963f66af16" onValueChange={handleCategory}>
+          <SelectTrigger className="mt-5" name="categoryId">
+            <SelectValue placeholder="Category" />
           </SelectTrigger>
           <SelectContent>
             {data?.map((category: Category) => {
@@ -99,6 +112,7 @@ export function AddProduct() {
           type="text"
           placeholder="Name"
           onChange={handleChange}
+          value={product.name}
         />
         <Input
           name="price"
@@ -106,6 +120,7 @@ export function AddProduct() {
           type="number"
           placeholder="Price"
           onChange={handleChange}
+          value={product.price}
         />
         <Input
           name="image"
@@ -113,6 +128,7 @@ export function AddProduct() {
           type="text" //file?
           placeholder="Image"
           onChange={handleChange}
+          value={product.image}
         />
         <Input
           name="quantity"
@@ -120,6 +136,7 @@ export function AddProduct() {
           type="number"
           placeholder="Quantity"
           onChange={handleChange}
+          value={product.quantity}
         />
         <Input
           name="description"
@@ -127,6 +144,7 @@ export function AddProduct() {
           type="text"
           placeholder="Description"
           onChange={handleChange}
+          value={product.description}
         />
         <div className="flex justify-evenly">
           <Button className="mt-5 mx-1 w-2/3" type="submit">
