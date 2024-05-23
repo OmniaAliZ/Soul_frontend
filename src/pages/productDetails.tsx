@@ -12,10 +12,24 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { NavBar } from "@/components/navBar"
-
+import { FormEvent, useContext, useState } from "react"
+import { GlobalContext } from "@/App"
+import { Product } from "@/types"
+//!!!!!!! WHY REFRESH WHEN ADD TO CART??????????
 export function ProductDetails() {
+  const provider = useContext(GlobalContext)
+  if (!provider) throw Error("Context is missing")
+  const { state, handleAddToCart } = provider
+
+  const { cart } = state
+  const [selectedQuantity, setSelectedQuantity] = useState(1)
   const { id } = useParams<string>()
-  console.log("id in product details ", id)
+
+  const groups = state.cart.reduce((acc, obj) => {
+    const key = obj.id
+    const curGroup = acc[key] ?? []
+    return { ...acc, [key]: [...curGroup, obj] }
+  }, {} as { [key: string]: Product[] })
 
   const getProductById = async (id: string | undefined) => {
     try {
@@ -27,11 +41,10 @@ export function ProductDetails() {
     }
   }
 
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isPending, isError, error } = useQuery<Product>({
     queryKey: ["products", id],
     queryFn: () => getProductById(id)
   })
-  console.log("data in product details", data)
 
   if (isPending) {
     return <p>Data is fetching ....</p>
@@ -40,9 +53,47 @@ export function ProductDetails() {
     return <span>Error: {error.message}</span>
   }
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+
+    const quantities = [...Array(selectedQuantity).keys()]
+
+    quantities.map(() => {
+      handleAddToCart(data)
+    })
+  }
+  const handleChange = (value: string) => {
+    setSelectedQuantity(Number(value))
+  }
+
+  // groups products based product id
+  // based on the id, get the quantity of product, product id in cart
+  // based on product id in cart, check whether product id in cart == productDetailId or not
+  // if yes, update the quantity of ProductDetail by productDetail.quantity -  productCartId
+  let updatedProductQuantity = data.quantity
+
+  Object.keys(groups).forEach((key) => {
+    const products = groups[key]
+    const foundProductId = key == id
+    if (foundProductId) {
+      updatedProductQuantity = data.quantity - products.length
+
+    }
+  })
+
+  const products = state.cart.filter((p) => p.id === data.id)
+
+  const inStock = data.quantity > products.length
+
+  let availableQuantity = 0
+  if (updatedProductQuantity) {
+    availableQuantity = updatedProductQuantity < 5 ? updatedProductQuantity : 5
+  }
+  const select = [...Array(availableQuantity).keys()]
+
   return (
     <>
-    <NavBar/>
+      <NavBar />
       <div className="grid md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto py-6">
         <div className="grid gap-4 md:gap-10 items-start">
           <div className="grid gap-4">
@@ -54,25 +105,45 @@ export function ProductDetails() {
               <p>{data.description}</p>
             </div>
           </div>
-          <form className="grid gap-4 md:gap-10">
+          <form onSubmit={handleSubmit} className="grid gap-4 md:gap-10">
             <div className="grid gap-2 justify-center">
               <Label className="text-base" htmlFor="quantity">
                 Quantity
               </Label>
-              <Select defaultValue="1">
+              <Select defaultValue="1" onValueChange={handleChange}>
                 <SelectTrigger className="w-24">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">1</SelectItem>
-                  <SelectItem value="2">2</SelectItem>
-                  <SelectItem value="3">3</SelectItem>
-                  <SelectItem value="4">4</SelectItem>
-                  <SelectItem value="5">5</SelectItem>
+                  {/* <SelectItem key="1" value="1">
+                    1
+                  </SelectItem>
+                  <SelectItem key="2" value="2">
+                    2
+                  </SelectItem>
+                  <SelectItem key="3" value="3">
+                    3
+                  </SelectItem>
+                  <SelectItem key="4" value="4">
+                    4
+                  </SelectItem>
+                  <SelectItem key="5" value="5">
+                    5
+                  </SelectItem> */}
+                  {select?.map((x) => {
+                    const value = ++x
+                    return (
+                      <SelectItem value={value.toString()} key={value}>
+                        {value}
+                      </SelectItem>
+                    )
+                  })}
                 </SelectContent>
               </Select>
             </div>
-            <Button size="lg">Add to Cart</Button>
+            <Button disabled={!inStock} size="lg">
+              {inStock ? "Add to Cart" : "Out of Stock"}
+            </Button>
           </form>
         </div>
         <div className="grid gap-4">

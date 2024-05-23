@@ -9,36 +9,20 @@ import {
   TableRow
 } from "./ui/table"
 import { Category, Product } from "@/types"
-import api from "@/api"
+// import api from "@/api"
 import { EditProduct } from "./editProduct"
 import { DeleteProduct } from "./deleteProduct"
+import ProductService from "../api/products"
+import categoryService from "../api/categories"
 
 export function ProductTable() {
-  const getProducts = async () => {
-    try {
-      const res = await api.get("/products")
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
-  const getCategories = async () => {
-    try {
-      const res = await api.get("/categories")
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
   const { data: products, error } = useQuery<Product[]>({
     queryKey: ["products"],
-    queryFn: getProducts
+    queryFn: ProductService.getProductsTable
   })
   const { data: categories } = useQuery<Category[]>({
     queryKey: ["categories"],
-    queryFn: getCategories
+    queryFn: categoryService.getCategories
   })
 
   const categoriesIds = categories?.reduce((acc, category) => {

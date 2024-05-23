@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Category, Product } from "@/types"
+import { ROLE, User } from "@/types"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ChangeEvent, useState } from "react"
 import {
@@ -22,31 +22,19 @@ import {
   SelectValue
 } from "@/components/ui/select"
 
-export function EditProduct({ product }: { product: Product }) {
-  if (!product) throw Error("No product edit")
-  const getCategories = async () => {
-    try {
-      const res = await api.get("/categories")
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
-  const { data } = useQuery<Category[]>({
-    queryKey: ["categories"],
-    queryFn: getCategories
-  })
+export function EditUser({ user }: { user: User }) {
+  if (!user) throw Error("No product edit")
+
   const queryClient = useQueryClient()
-  const [updatedProduct, setUpdatedProduct] = useState(product)
+  const [updatedUser, setUpdatedUser] = useState(user)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setUpdatedProduct({ ...updatedProduct, [name]: value })
+    setUpdatedUser({ ...updatedUser, [name]: value })
   }
   const patchProduct = async () => {
     try {
-      const res = await api.patch(`/products/${updatedProduct.id}`, updatedProduct)
+      const res = await api.patch(`/users/${updatedUser.id}`, updatedUser)
       return res.data
     } catch (error) {
       console.error(error)
@@ -55,11 +43,11 @@ export function EditProduct({ product }: { product: Product }) {
   }
   const handleUpdate = async () => {
     await patchProduct()
-    queryClient.invalidateQueries({ queryKey: ["products"] })
+    queryClient.invalidateQueries({ queryKey: ["users"] })
   }
-  const handleCategory = (value: string) => {
+  const handleRole = (value: string) => {
     console.log(value)
-    setUpdatedProduct({ ...updatedProduct, categoryId: value })
+    setUpdatedUser({ ...updatedUser, role: value })
   }
   return (
     <Dialog>
@@ -68,9 +56,9 @@ export function EditProduct({ product }: { product: Product }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Product</DialogTitle>
+          <DialogTitle>Edit User</DialogTitle>
           <DialogDescription>
-            Make changes to your product here. Click save when you are done.
+            Make changes to your user here. Click save when you are done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -81,66 +69,52 @@ export function EditProduct({ product }: { product: Product }) {
             <Input
               id="name"
               name="name"
-              defaultValue={product.name}
+              defaultValue={user.fullName}
               className="col-span-3"
               onChange={handleChange}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="price" className="text-right">
-              Price
+              Email
             </Label>
             <Input
-              id="price"
-              name="price"
-              defaultValue={product.price}
+              id="email"
+              name="email"
+              defaultValue={user.email}
               className="col-span-3"
               onChange={handleChange}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="quantity" className="text-right">
-              Quantity
+              Phone
             </Label>
             <Input
-              id="quantity"
-              name="quantity"
-              defaultValue={product.quantity}
+              id="phone"
+              name="phone"
+              defaultValue={user.phone}
               className="col-span-3"
               onChange={handleChange}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="categoryId" className="text-right">
-              Category
+            <Label htmlFor="description" className="text-right">
+              Role
             </Label>
-
-            <Select defaultValue={product.categoryId} onValueChange={handleCategory}>
+            <Select defaultValue="Customer" onValueChange={handleRole}>
               <SelectTrigger className="col-span-3" name="categoryId">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
-                {data?.map((category: Category) => {
-                  return (
-                    <SelectItem key={category.id} value={category.id}>
-                      {category.name}
-                    </SelectItem>
-                  )
-                })}
+                <SelectItem key={ROLE.Customer} value={ROLE.Customer}>
+                  Customer
+                </SelectItem>
+                <SelectItem key={ROLE.Admin} value={ROLE.Admin}>
+                  Admin
+                </SelectItem>
               </SelectContent>
             </Select>
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="description" className="text-right">
-              Description
-            </Label>
-            <Input
-              id="description"
-              name="description"
-              defaultValue={product.description}
-              className="col-span-3"
-              onChange={handleChange}
-            />
           </div>
         </div>
         <DialogFooter>

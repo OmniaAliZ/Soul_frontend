@@ -37,7 +37,6 @@ export function AddProduct() {
     try {
       const res = await api.post("/products", product)
       return res.data
-      console.log(res.data)
     } catch (error) {
       console.error(error)
       return Promise.reject(new Error("Something went wrong"))

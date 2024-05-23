@@ -1,101 +1,148 @@
 import * as React from "react"
-import { BeerIcon, DeleteIcon, ShoppingCartIcon, XCircleIcon, XSquareIcon } from "lucide-react"
+import { ShoppingCartIcon } from "lucide-react"
 import { useContext } from "react"
 import { GlobalContext } from "@/App"
 
 import { Button } from "@/components/ui/button"
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerPortal,
-  DrawerTitle,
-  DrawerTrigger
-} from "@/components/ui/drawer"
 import { Badge } from "./ui/badge"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from "./ui/sheet"
+import { OrderCheckout, Product } from "@/types"
+import api from "@/api"
 
 export function Cart() {
   const provider = useContext(GlobalContext)
   if (!provider) throw Error("Context is missing")
-  const { state, handleDeleteFromCart } = provider
+  const { state, handleDeleteFromCart, handleAddToCart, handleRemoveCart } = provider
+
+  const groups = state.cart.reduce((acc, obj) => {
+    const key = obj.id
+    const curGroup = acc[key] ?? []
+    return { ...acc, [key]: [...curGroup, obj] }
+  }, {} as { [key: string]: Product[] })
+
+  const keys = Object.keys(groups)
+
+  const total = state.cart.reduce((acc, curr) => {
+    return acc + curr.price
+  }, 0)
+
+  const checkoutOrder: OrderCheckout = {
+    addressId: "",
+    items: []
+  }
+
+  Object.keys(groups).forEach((key) => {
+    const products = groups[key]
+    checkoutOrder.items.push({
+      quantity: products.length,
+      productId: key
+    })
+  })
+
+  const handleCheckout = async () => {
+    try {
+      const token = localStorage.getItem("token")
+      const res = await api.post("/orders/chockout", checkoutOrder, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      if(res.status===201){
+        handleRemoveCart()
+      }
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+
   return (
-    <Drawer>
-      <DrawerTrigger asChild>
-        {/* <Button variant="outline">Open Drawer</Button> */}
-        {/* <ShoppingCartIcon className="h-5 w-5" /> */}
-        <Button className="rounded-full" size="icon" variant="outline">
-          <ShoppingCartIcon className="h-5 w-5" />
-          <span className="sr-only">Cart</span>
-          <Badge className="absolute mb-7 ml-10 rounded-full bg-red-500 py-1 text-xs text-white">
-            {state.cart.length}
-          </Badge>
-        </Button>
-      </DrawerTrigger>
-      <DrawerPortal>
-        <DrawerOverlay className="fixed inset-0 bg-black/40" />
-        <DrawerContent className="h-screen top-0 right-0 left-auto mt-0 w-[400px] rounded-none">
-          <div className="flex flex-col mx-auto w-full max-w-sm">
-            <DrawerHeader>
-              <DrawerTitle>Shopping Cart</DrawerTitle>
-              <DrawerDescription>---------------------</DrawerDescription>
-            </DrawerHeader>
-            <div className="p-4 pb-0">
-              <div className="flex items-center justify-center space-x-2">List</div>
-              <div className="mt-3 h-[120px]">what is this</div>
-              <div>
-                {state.cart.map((orderItem) => {
-                  return (
-                    <div className="mb-4 flex items-center gap-4" key={orderItem.id}>
-                      <img
-                        src={orderItem.image}
-                        alt={orderItem.name}
-                        className="w-10 h-10 object-contain"
-                      />
-                      <h4 className=" font-bold">{orderItem.name}</h4>
-                      <span className=" font-bold">{orderItem.price}</span>
-                      <XSquareIcon onClick={() => handleDeleteFromCart(orderItem.id)} />
+    <>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button className="rounded-full" size="icon" variant="outline">
+            <ShoppingCartIcon className="h-5 w-5" />
+            <span className="sr-only">Cart</span>
+            <Badge className="absolute mb-7 ml-10 rounded-full bg-red-500 py-1 text-xs text-white">
+              {Object.keys(groups).length}
+            </Badge>
+          </Button>
+        </SheetTrigger>
+
+        <SheetContent side="right">
+          <SheetHeader>
+            <SheetTitle>Your Cart</SheetTitle>
+          </SheetHeader>
+          <div className="grid gap-4 overflow-auto px-4 py-6 max-h-[80vh]">
+            {state.cart.length === 0 && <p>NO ITEMS</p>}
+            {keys.map((key) => {
+              const products = groups[key]
+              const product = products[0]
+              const totalForEach = products.reduce((acc, curr) => {
+                return acc + curr.price
+              }, 0)
+              return (
+                <div key={product.id} className="grid grid-cols-[64px_1fr_auto] items-center gap-4">
+                  <img
+                    alt={product.name}
+                    className="rounded-md object-cover"
+                    height={64}
+                    src={product.image}
+                    style={{
+                      aspectRatio: "64/64",
+                      objectFit: "cover"
+                    }}
+                    width={64}
+                  />
+                  <div className="grid gap-1">
+                    <h3 className="font-medium">{product.name}</h3>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        onClick={() => handleDeleteFromCart(product.id)}
+                        size="sm"
+                        variant="outline"
+                      >
+                        -
+                      </Button>
+                      <span>{products.length}</span>
+                      <Button onClick={() => handleAddToCart(product)} size="sm" variant="outline">
+                        +
+                      </Button>
                     </div>
-                  )
-                })}
+                  </div>
+                  <div className="text-right font-medium">$ {totalForEach.toFixed(2)}</div>
+                </div>
+              )
+            })}
+          </div>
+          <SheetFooter className="border-t px-4 py-6">
+            <div className="flex flex-col">
+              <div className="flex items-center justify-center">
+                <span className="text-2xl font-semibold">Total: </span>
+                <span className="text-2xl font-semibold">${total.toFixed(2)}</span>
+              </div>
+              <div className="mt-4 flex gap-2">
+              <SheetClose asChild>
+                <Button className="flex-1 w-40" variant="outline">
+                  Continue Shopping
+                </Button></SheetClose>
+                <Button onClick={handleCheckout} className="flex-1 w-40">
+                  Checkout
+                </Button>
               </div>
             </div>
-            <DrawerFooter>
-              <Button>Checkout</Button>
-              <DrawerClose asChild>
-                <Button variant="outline">Continue shopping</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </div>
-        </DrawerContent>
-      </DrawerPortal>
-    </Drawer>
-  )
-}
-
-export function CartN() {
-  return (
-    <Drawer>
-      <DrawerTrigger asChild>
-        <button>Open Drawer</button>
-      </DrawerTrigger>
-      <DrawerPortal>
-        <DrawerOverlay className="fixed inset-0 bg-black/40" />
-        <DrawerContent className="bg-white flex flex-col rounded-t-[10px] h-full w-[400px] mt-24 fixed bottom-0 right-0">
-          <div className="p-4 bg-white flex-1 h-full">
-            <div className="max-w-md mx-auto">
-              <DrawerTitle className="font-medium mb-4">Unstyled drawer for React.</DrawerTitle>
-              <p className="text-zinc-600 mb-2">
-                This component can be used as a replacement for a Dialog on mobile and tablet
-                devices.
-              </p>
-            </div>
-          </div>
-        </DrawerContent>
-      </DrawerPortal>
-    </Drawer>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+    </>
   )
 }

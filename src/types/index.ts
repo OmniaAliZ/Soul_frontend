@@ -3,14 +3,13 @@ export type Product = {
   name: string
   categoryId: string
   image: string
-  price: string
-  quantity: string
+  price: number
+  quantity: number
   description: string
 }
 export type User = {
   id: string
   email: string
-  password: string
   fullName: string
   phone: string
   role: string //?
@@ -44,3 +43,24 @@ export type Order = {
 //   price: string
 //   quantity: string
 //   descript
+export type OrderItem = {
+  quantity: number
+  productId: string
+}
+export type OrderCheckout = {
+  addressId: string
+  items: OrderItem[]
+}
+export type DecodedUser = {
+  aud: string
+  emailaddress: string
+  exp: number
+  iss: string
+  nameidentifier: string
+  name: string
+  role: keyof typeof ROLE
+}
+export const ROLE = {
+  Customer: "Customer",
+  Admin: "Admin"
+} as const
