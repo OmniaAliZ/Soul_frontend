@@ -12,6 +12,7 @@ import {
   TableRow
 } from "./ui/table"
 import { EditUser } from "./editUser"
+import { DeleteUser } from "./deleteUser"
 
 export function UsersTable() {
   const getUsers = async () => {
@@ -35,7 +36,7 @@ export function UsersTable() {
   return (
     <>
       <Table>
-        <TableCaption>A list of products.</TableCaption>
+        <TableCaption>A list of Users.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="text-left">Full Name</TableHead>
@@ -54,7 +55,7 @@ export function UsersTable() {
               <TableCell className="text-left">{user?.role}</TableCell>
               <TableCell className="flex justify-around">
                 <EditUser user={user} />
-                {/* <DeleteProduct product={product} /> */}
+                <DeleteUser user={user} />
                 {/* NOT YET : HOW TO BLOCK */}
               </TableCell>
             </TableRow>
