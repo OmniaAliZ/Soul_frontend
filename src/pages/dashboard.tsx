@@ -20,6 +20,10 @@ import {
 import { CreditCardIcon, DollarSignIcon, UsersIcon } from "lucide-react"
 import { useContext } from "react"
 import { GlobalContext } from "@/App"
+import api from "@/api"
+import { useQuery } from "@tanstack/react-query"
+import { Order } from "@/types"
+import { Footer } from "@/components/footer"
 
 //!!!!!!!!!!!!!!!!MOVE TO / AFTER LOGOUT
 
@@ -27,6 +31,20 @@ export function Dashboard() {
   const provider = useContext(GlobalContext)
   if (!provider) throw Error("Context is missing")
   const { state } = provider
+
+  const getOrders = async () => {
+    try {
+      const res = await api.get("/orders")
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+  const { data } = useQuery<Order[]>({
+    queryKey: ["orders"],
+    queryFn: getOrders
+  })
   return (
     <>
       <AdminNavbar />
@@ -35,7 +53,7 @@ export function Dashboard() {
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <p className="text-gray-500 dark:text-gray-400">Welcome back, {state.user?.name}</p>
         {/* </div> */}
-      </div>{" "}
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <Card>
           <CardHeader className="flex items-center justify-between">
@@ -67,10 +85,10 @@ export function Dashboard() {
             <p className="text-sm text-gray-500 dark:text-gray-400">+19% from last month</p>
           </CardContent>
         </Card>
-        <Card className="col-span-1 sm:col-span-2 lg:col-span-3">
+        <Card className="col-span-1 mb-10 sm:col-span-2 lg:col-span-3">
           <CardHeader className="flex items-center justify-between">
             <CardTitle>Recent Orders</CardTitle>
-            <div className="flex items-center gap-4">
+            {/* <div className="flex items-center gap-4">
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
@@ -95,84 +113,33 @@ export function Dashboard() {
                   </PaginationItem>
                 </PaginationContent>
               </Pagination>
-            </div>
+            </div> */}
           </CardHeader>
           <CardContent>
-            <Table>
+            <Table className="mt-20 w-4/5 mx-auto">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[100px]">Invoice</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Method</TableHead>
-                  <TableHead className="text-right">Amount</TableHead>
+                  <TableHead className="text-left">Invoice</TableHead>
+                  <TableHead className="text-left">Status</TableHead>
+                  <TableHead className="text-left">Date</TableHead>
+                  <TableHead className="text-left">Amount</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">INV001</TableCell>
-                  <TableCell>Paid</TableCell>
-                  <TableCell>Credit Card</TableCell>
-                  <TableCell className="text-right">$250.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">INV002</TableCell>
-                  <TableCell>Pending</TableCell>
-                  <TableCell>PayPal</TableCell>
-                  <TableCell className="text-right">$150.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">INV003</TableCell>
-                  <TableCell>Unpaid</TableCell>
-                  <TableCell>Bank Transfer</TableCell>
-                  <TableCell className="text-right">$350.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">INV004</TableCell>
-                  <TableCell>Paid</TableCell>
-                  <TableCell>Credit Card</TableCell>
-                  <TableCell className="text-right">$450.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">INV005</TableCell>
-                  <TableCell>Paid</TableCell>
-                  <TableCell>PayPal</TableCell>
-                  <TableCell className="text-right">$550.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">INV006</TableCell>
-                  <TableCell>Paid</TableCell>
-                  <TableCell>Credit Card</TableCell>
-                  <TableCell className="text-right">$650.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">INV007</TableCell>
-                  <TableCell>Pending</TableCell>
-                  <TableCell>PayPal</TableCell>
-                  <TableCell className="text-right">$750.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">INV008</TableCell>
-                  <TableCell>Unpaid</TableCell>
-                  <TableCell>Bank Transfer</TableCell>
-                  <TableCell className="text-right">$850.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">INV009</TableCell>
-                  <TableCell>Paid</TableCell>
-                  <TableCell>Credit Card</TableCell>
-                  <TableCell className="text-right">$950.00</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">INV010</TableCell>
-                  <TableCell>Paid</TableCell>
-                  <TableCell>PayPal</TableCell>
-                  <TableCell className="text-right">$1,050.00</TableCell>
-                </TableRow>
+                {data?.map((order) => (
+                  <TableRow key={order.id}>
+                    <TableCell className=" text-left">{order.id}</TableCell>
+                    <TableCell className=" text-left">{order.status}</TableCell>
+                    <TableCell className=" text-left">{order.orderDate.toString()}</TableCell>
+                    <TableCell className=" text-left">${order.totalPrice}</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </CardContent>
         </Card>
       </div>
+      <Footer />
     </>
   )
 }

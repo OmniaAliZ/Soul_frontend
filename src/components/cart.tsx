@@ -137,9 +137,21 @@ export function Cart() {
                     Continue Shopping
                   </Button>
                 </SheetClose>
-                <Link to="/checkout">
-                  <Button className="flex-1 w-40">Checkout</Button>
-                </Link>
+                {!state.user && (
+                  <Button
+                    onClick={function () {
+                      alert("test")
+                    }}
+                    className="flex-1 w-40"
+                  >
+                    Checkout
+                  </Button>
+                )}
+                {state.user && (
+                  <Link to="/checkout">
+                    <Button className="flex-1 w-40">Checkout</Button>
+                  </Link>
+                )}
               </div>
             </div>
           </SheetFooter>

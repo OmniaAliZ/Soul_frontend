@@ -10,7 +10,7 @@ import { ChangeEvent, useContext, useState } from "react"
 import { NavBar } from "@/components/navBar"
 import { Footer } from "@/components/footer"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 export function Checkout() {
   const provider = useContext(GlobalContext)
@@ -52,10 +52,15 @@ export function Checkout() {
   }
 
   const { data: addresses } = useQuery<Address[]>({
-    queryKey: ["products", state.user?.nameidentifier],
+    queryKey: ["addresses", state.user?.nameidentifier],
     queryFn: () => getAddressesById(state.user?.nameidentifier)
   })
-  const [selectedAddress, setSelectedAddress] = useState("")
+
+  let defaultAddress = ""
+  if (addresses) {
+    defaultAddress = addresses[0].id
+  }
+  const [selectedAddress, setSelectedAddress] = useState(defaultAddress)
 
   const handleRadioChange = (value: string) => {
     console.log("value", value)
@@ -66,7 +71,8 @@ export function Checkout() {
     try {
       checkoutOrder.addressId = selectedAddress
       const token = localStorage.getItem("token")
-      const res = await api.post("/orders/chockout", checkoutOrder, {
+
+      const res = await api.post("/orders/checkout", checkoutOrder, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -80,6 +86,41 @@ export function Checkout() {
       return Promise.reject(new Error("Something went wrong"))
     }
   }
+  const [address, setAddress] = useState({
+    country: "",
+    city: "",
+    street: "",
+    zip_code: 0
+  })
+
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setAddress({ ...address, [name]: value })
+    console.log(name, value)
+  }
+  const postAddress = async () => {
+    try {
+      const token = localStorage.getItem("token")
+      const res = await api.post("/addresses", address, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+  const queryClient = useQueryClient()
+
+  const handleAddressSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    await postAddress()
+    queryClient.invalidateQueries({ queryKey: ["addresses"] })
+  }
+  console.log("ID ADDRESS", selectedAddress)
+
   return (
     <>
       <NavBar />
@@ -154,13 +195,16 @@ export function Checkout() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="address">Address</Label>
-              {/* <Textarea id="address" placeholder="Enter your address" rows={3} /> */}
+              <Separator />
+              <Label className="mt-3" htmlFor="address">
+                Address
+              </Label>
               {addresses && addresses?.length > 0 && (
                 <RadioGroup
                   aria-label="Address"
                   onValueChange={handleRadioChange}
                   defaultValue={addresses[0].id}
+                  defaultChecked
                   className="grid gap-2"
                 >
                   {addresses?.map((address) => {
@@ -171,13 +215,46 @@ export function Checkout() {
                           className="flex items-center gap-2 cursor-pointer"
                           htmlFor={address.id}
                         >
-                          {" "}
                           {address.country} - {address.city} - {address.street}
                         </Label>
                       </div>
                     )
                   })}
                 </RadioGroup>
+              )}
+              {addresses?.length === 0 && (
+                <form onSubmit={handleAddressSubmit}>
+                  <div className="grid gap-2 mt-3">
+                    <Label htmlFor="country">Country</Label>
+                    <Input
+                      onChange={handleAddressChange}
+                      name="country"
+                      id="country"
+                      placeholder="Enter your country"
+                    />
+                  </div>
+                  <div className="grid gap-2 mt-3">
+                    <Label htmlFor="city">City</Label>
+                    <Input
+                      onChange={handleAddressChange}
+                      name="city"
+                      id="city"
+                      placeholder="Enter your city"
+                    />
+                  </div>
+                  <div className="grid gap-2 mt-3">
+                    <Label htmlFor="street">Street</Label>
+                    <Input
+                      onChange={handleAddressChange}
+                      name="street"
+                      id="street"
+                      placeholder="Enter your street"
+                    />
+                  </div>
+                  <Button className="w-full" type="submit">
+                    Add Address
+                  </Button>
+                </form>
               )}
             </div>
             <div className="grid grid-cols-3 gap-4">

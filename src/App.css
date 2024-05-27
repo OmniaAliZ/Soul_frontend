@@ -1,6 +1,8 @@
 #root {
   max-width: 1880px;
   margin: 0 auto;
+  background-color: #eef2ec;
+  color: #47523f;
   /* padding: 2rem; */
   text-align: center;
 }
