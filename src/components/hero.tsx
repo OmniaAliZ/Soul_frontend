@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 export function Hero() {
   return (
-    <section className="w-full py-20 md:py-32 lg:py-40 bg-[url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm00MjItMDQ3LWtxOTJ3eDl5LmpwZw.jpg')] bg-cover bg-center">
+    <section className="w-full py-20 md:py-32 lg:py-40 bg-cover bg-center">
       <div className="container px-4 md:px-6">
         <div className="max-w-2xl space-y-6 text-center">
           <div className="inline-block rounded-lg bg-green-100 px-4 py-2 text-sm font-medium text-green-600 dark:bg-green-900 dark:text-green-400">

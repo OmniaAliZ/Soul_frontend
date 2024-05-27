@@ -13,14 +13,32 @@ import { Link } from "react-router-dom"
 import { Cart } from "@/components/cart"
 import { GlobalContext } from "@/App"
 import { useContext } from "react"
-import { ROLE } from "@/types"
+import { Category, ROLE } from "@/types"
+import api from "@/api"
+import { useQuery } from "@tanstack/react-query"
+
+//!!!!! WHY NOT GO TO HOME WHEN LOGOUT??????
 export function NavBar() {
   const provider = useContext(GlobalContext)
   if (!provider) throw Error("Context is missing")
   const { state, handleRemoveUser } = provider
 
+  const getCategories = async () => {
+    try {
+      const res = await api.get("/categories")
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
+  const { data: categories } = useQuery<Category[]>({
+    queryKey: ["categories"],
+    queryFn: getCategories
+  })
+
   const handleLogout = () => {
-    if (typeof Window !== undefined) {
+    if (typeof window !== undefined) {
       window.location.reload()
     }
     localStorage.removeItem("token")
@@ -42,6 +60,26 @@ export function NavBar() {
           >
             Home
           </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <span>Shop</span>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Sections</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <Link to="/">
+                <DropdownMenuItem>All</DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
+              {categories?.map((cat) => {
+                return (
+                  <Link key={cat.id} to={`/products/section/${cat.id}`}>
+                    <DropdownMenuItem>{cat.name}</DropdownMenuItem>
+                  </Link>
+                )
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
           {state.user?.role === ROLE.Admin && (
             <Link
               className="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
@@ -66,7 +104,7 @@ export function NavBar() {
               Signup
             </Link>
           )}
-          {state.user && (
+          {/* {state.user && (
             <Link
               className="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
               onClick={handleLogout}
@@ -74,7 +112,7 @@ export function NavBar() {
             >
               Logout
             </Link>
-          )}
+          )} */}
           {/* <Link
           className="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors flex items-center gap-2"
           to="#"
@@ -110,10 +148,16 @@ export function NavBar() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <Link to="/profile">
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                </Link>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link onClick={handleLogout} to="/">
+                    Logout
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
@@ -136,7 +180,7 @@ export function NavBar() {
                   className="flex items-center gap-2 text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
                   to="/"
                 >
-                  Home
+                  Shop
                 </Link>
                 {state.user?.role === ROLE.Admin && (
                   <Link
@@ -165,6 +209,7 @@ export function NavBar() {
                 {state.user && (
                   <Link
                     className="flex items-center gap-2 text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
+                    onClick={handleLogout}
                     to="/"
                   >
                     Logout

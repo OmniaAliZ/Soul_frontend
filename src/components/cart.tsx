@@ -16,6 +16,7 @@ import {
 } from "./ui/sheet"
 import { OrderCheckout, Product } from "@/types"
 import api from "@/api"
+import { Link } from "react-router-dom"
 
 export function Cart() {
   const provider = useContext(GlobalContext)
@@ -34,36 +35,36 @@ export function Cart() {
     return acc + curr.price
   }, 0)
 
-  const checkoutOrder: OrderCheckout = {
-    addressId: "",
-    items: []
-  }
+  // const checkoutOrder: OrderCheckout = {
+  //   addressId: "",
+  //   items: []
+  // }
 
-  Object.keys(groups).forEach((key) => {
-    const products = groups[key]
-    checkoutOrder.items.push({
-      quantity: products.length,
-      productId: key
-    })
-  })
+  // Object.keys(groups).forEach((key) => {
+  //   const products = groups[key]
+  //   checkoutOrder.items.push({
+  //     quantity: products.length,
+  //     productId: key
+  //   })
+  // })
 
-  const handleCheckout = async () => {
-    try {
-      const token = localStorage.getItem("token")
-      const res = await api.post("/orders/chockout", checkoutOrder, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      if(res.status===201){
-        handleRemoveCart()
-      }
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
+  // const handleCheckout = async () => {
+  //   try {
+  //     const token = localStorage.getItem("token")
+  //     const res = await api.post("/orders/chockout", checkoutOrder, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`
+  //       }
+  //     })
+  //     if (res.status === 201) {
+  //       handleRemoveCart()
+  //     }
+  //     return res.data
+  //   } catch (error) {
+  //     console.error(error)
+  //     return Promise.reject(new Error("Something went wrong"))
+  //   }
+  // }
 
   return (
     <>
@@ -127,17 +128,18 @@ export function Cart() {
           <SheetFooter className="border-t px-4 py-6">
             <div className="flex flex-col">
               <div className="flex items-center justify-center">
-                <span className="text-2xl font-semibold">Total: </span>
-                <span className="text-2xl font-semibold">${total.toFixed(2)}</span>
+                <span className="text-xl">Total: </span>
+                <span className=" text-xl">${total.toFixed(2)}</span>
               </div>
               <div className="mt-4 flex gap-2">
-              <SheetClose asChild>
-                <Button className="flex-1 w-40" variant="outline">
-                  Continue Shopping
-                </Button></SheetClose>
-                <Button onClick={handleCheckout} className="flex-1 w-40">
-                  Checkout
-                </Button>
+                <SheetClose asChild>
+                  <Button className="flex-1 w-40" variant="outline">
+                    Continue Shopping
+                  </Button>
+                </SheetClose>
+                <Link to="/checkout">
+                  <Button className="flex-1 w-40">Checkout</Button>
+                </Link>
               </div>
             </div>
           </SheetFooter>

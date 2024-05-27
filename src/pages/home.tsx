@@ -1,3 +1,5 @@
+import { Footer } from "@/components/footer"
+import { Hero } from "@/components/hero"
 import { NavBar } from "@/components/navBar"
 import { ViewProducts } from "@/components/ViewProducts"
 
@@ -5,9 +7,10 @@ export function Home() {
   return (
     <>
       <NavBar />
-      {/* <Hero /> */}
+      <Hero />
       <h1 className="text-2xl uppercase mb-10">Products</h1>
       <ViewProducts />
+      <Footer />
     </>
   )
 }

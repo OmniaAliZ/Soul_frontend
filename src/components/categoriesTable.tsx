@@ -21,7 +21,7 @@ export function CategoriesTable() {
 
   return (
     <>
-      <Table>
+      <Table className="mt-20 w-4/5 mx-auto">
         <TableCaption>A list of Categories.</TableCaption>
         <TableHeader>
           <TableRow>

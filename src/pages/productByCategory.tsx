@@ -1,74 +1,70 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react"
-import { Input } from "./ui/input"
+import { useContext, useState } from "react"
 import api from "@/api"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { Product } from "@/types"
-import { Button } from "./ui/button"
-import { useSearchParams, Link } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
+import { Category, Product } from "@/types"
+import { Link, useParams } from "react-router-dom"
 import { GlobalContext } from "@/App"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { EyeIcon } from "lucide-react"
-//!!!!!!!! HOW TO DELETE (SEARCH BY) FROM QUERY ?????????
-////!!!!!!!!! WHEN MD PICS GET HUUUUGEEEE????
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select"
+import { Button } from "@/components/ui/button"
+import { NavBar } from "@/components/navBar"
+import { Footer } from "@/components/footer"
 
-export function ViewProducts() {
+export function ProductByCategory() {
   const provider = useContext(GlobalContext)
   if (!provider) throw Error("Context is missing")
   const { state, handleAddToCart } = provider
+  const { id } = useParams<string>()
 
-  const queryClient = useQueryClient()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const defaultSearch = searchParams.get("searchBy") || ""
-  const [searchBy, setSearchBy] = useState(defaultSearch)
   const [selectedQuantity, setSelectedQuantity] = useState(1)
 
-  const getProducts = async () => {
+  const getProductsById = async (id: string | undefined) => {
     try {
-      const res = await api.get(`/products?searchBy=${searchBy}`)
+      const res = await api.get(`/products/section/${id}`)
       return res.data
     } catch (error) {
       console.error(error)
       return Promise.reject(new Error("Something went wrong"))
     }
   }
+
   const { data, error } = useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: getProducts
+    queryKey: ["products", id],
+    queryFn: () => getProductsById(id)
   })
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    setSearchBy(value)
-  }
-  const handleSearch = async (e: FormEvent) => {
-    e.preventDefault()
-    if (searchBy) {
-      setSearchParams({ ...searchParams, searchBy: searchBy })
-    } else {
-      setSearchParams({ ...searchParams })
+  const getCategories = async () => {
+    try {
+      const res = await api.get("/categories")
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
     }
-    queryClient.invalidateQueries({ queryKey: ["products"] })
   }
+  const { data: category } = useQuery<Category[]>({
+    queryKey: ["categories"],
+    queryFn: getCategories
+  })
+  const cat = category?.find((c) => c.id === id)
   const handleQuantityChange = (value: string) => {
     setSelectedQuantity(Number(value))
   }
 
   return (
     <div>
-      <div className=" px-2">
-        <form className="flex gap-4 w-full md:w-1/2 mx-auto mb-10" onSubmit={handleSearch}>
-          <Input
-            value={searchBy}
-            name="searchBy"
-            type="search"
-            onChange={handleChange}
-            placeholder="Search..."
-          />
-          <Button type="submit">Search</Button>
-        </form>
-      </div>
+      <NavBar />
       {data?.length === 0 && <p>NO PRODUCTS FOUND</p>}
-      <section className="flex flex-col justify-center md:flex-row gap-4 max-w-6xl mx-auto flex-wrap">
+      <h1 className="text-4xl font-bold mt-6 text-center tracking-tight sm:text-5xl md:text-6xl">
+        {cat?.name}
+      </h1>
+      <section className="flex flex-col mt-6 justify-center mb-10 md:flex-row gap-4 max-w-6xl mx-auto flex-wrap">
         {data?.map((product) => {
           const products = state.cart.filter((p) => p.id === product.id)
           const inStock = product.quantity > products.length
@@ -113,7 +109,7 @@ export function ViewProducts() {
                 />
                 <Link
                   className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md group-hover:bg-gray-100 transition-colors dark:bg-gray-800 dark:group-hover:bg-gray-700"
-                  to={`products/${product.id}`}
+                  to={`/products/${product.id}`}
                 >
                   <EyeIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                   <span className="sr-only">View Details</span>
@@ -160,6 +156,7 @@ export function ViewProducts() {
         })}
       </section>
       {error && <p className="text-red-500">{error.message}</p>}
+      <Footer />
     </div>
   )
 }

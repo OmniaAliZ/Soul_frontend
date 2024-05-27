@@ -1,6 +1,6 @@
 import api from "@/api"
 import { useQuery } from "@tanstack/react-query"
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 import { Label } from "@/components/ui/label"
 import {
@@ -15,13 +15,13 @@ import { NavBar } from "@/components/navBar"
 import { FormEvent, useContext, useState } from "react"
 import { GlobalContext } from "@/App"
 import { Product } from "@/types"
-//!!!!!!! WHY REFRESH WHEN ADD TO CART??????????
+import { Footer } from "@/components/footer"
+//!!!!!!! VIEW PRODUCTS UNDER??????????
 export function ProductDetails() {
   const provider = useContext(GlobalContext)
   if (!provider) throw Error("Context is missing")
   const { state, handleAddToCart } = provider
 
-  const { cart } = state
   const [selectedQuantity, setSelectedQuantity] = useState(1)
   const { id } = useParams<string>()
 
@@ -77,7 +77,6 @@ export function ProductDetails() {
     const foundProductId = key == id
     if (foundProductId) {
       updatedProductQuantity = data.quantity - products.length
-
     }
   })
 
@@ -159,12 +158,12 @@ export function ProductDetails() {
 
       {/*  view products under */}
 
-      <section className="w-full py-12">
+      {/* <section className="w-full py-12">
         <div className="container grid gap-6 md:gap-8 px-4 md:px-6">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
             <div className="grid gap-1">
               <h1 className="text-2xl font-bold tracking-tight">People also like</h1>
-              {/* <p className="text-gray-500 dark:text-gray-400">Invite nature into your living space</p> */}
+              <p className="text-gray-500 dark:text-gray-400">Invite nature into your living space</p>
             </div>
           </div>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -189,7 +188,8 @@ export function ProductDetails() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+      <Footer />
     </>
   )
 }

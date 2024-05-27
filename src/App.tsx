@@ -9,6 +9,16 @@ import { DecodedUser, Product } from "./types"
 import { Login } from "./pages/login"
 import { Signup } from "./pages/signup"
 import { PrivateRoute } from "./components/privateRoute"
+import { AddProduct } from "./components/addProduct"
+import { ProductTable } from "./components/productsTable"
+import { AddUser } from "./components/addUser"
+import { UsersTable } from "./components/usersTable"
+import { AddCategory } from "./components/addCategory"
+import { CategoriesTable } from "./components/categoriesTable"
+import { AdminNavbar } from "./components/adminNavbar"
+import { UserProfile } from "./pages/userProfile"
+import { ProductByCategory } from "./pages/productByCategory"
+import { Checkout } from "./pages/checkout"
 // ProductService
 //!!!!!! WHY ALWAYS : Context is missing ERROR ??????????????
 const router = createBrowserRouter([
@@ -21,12 +31,63 @@ const router = createBrowserRouter([
     element: <ProductDetails />
   },
   {
+    path: "/products/section/:id",
+    element: <ProductByCategory />
+  },
+  {
     path: "/dashboard",
     element: (
       <PrivateRoute>
         <Dashboard />
       </PrivateRoute>
     )
+  },
+  {
+    path: "/dashboard/products",
+    element: (
+      <PrivateRoute>
+        <>
+          <AdminNavbar />
+          <AddProduct />
+          <ProductTable />
+        </>
+      </PrivateRoute>
+    )
+  },
+  {
+    path: "/dashboard/users",
+    element: (
+      <PrivateRoute>
+        <>
+          <AdminNavbar />
+          <AddUser />
+          <UsersTable />
+        </>
+      </PrivateRoute>
+    )
+  },
+  {
+    path: "/dashboard/categories",
+    element: (
+      <PrivateRoute>
+        <>
+          <AdminNavbar />
+          <AddCategory />
+          <CategoriesTable />
+        </>
+      </PrivateRoute>
+    )
+  },
+  {
+    path: "/profile",
+    element: (
+      <PrivateRoute>
+        <UserProfile />
+      </PrivateRoute>
+    )
+  },  {
+    path: "/checkout",
+    element: <Checkout />
   },
   {
     path: "/login",
@@ -66,6 +127,7 @@ function App() {
       })
     }
   }, [])
+  
   const handleAddToCart = (product: Product) => {
     const products = state.cart.filter((p) => p.id === product.id)
     const inStock = product.quantity > products.length

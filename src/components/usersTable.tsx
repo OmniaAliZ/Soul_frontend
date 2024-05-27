@@ -35,7 +35,7 @@ export function UsersTable() {
   })
   return (
     <>
-      <Table>
+      <Table className="mt-20 w-4/5 mx-auto">
         <TableCaption>A list of Users.</TableCaption>
         <TableHeader>
           <TableRow>

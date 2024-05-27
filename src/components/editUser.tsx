@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select"
 
 export function EditUser({ user }: { user: User }) {
-  if (!user) throw Error("No product edit")
+  if (!user) throw Error("No user edit")
 
   const queryClient = useQueryClient()
   const [updatedUser, setUpdatedUser] = useState(user)
@@ -32,7 +32,7 @@ export function EditUser({ user }: { user: User }) {
     const { name, value } = e.target
     setUpdatedUser({ ...updatedUser, [name]: value })
   }
-  const patchProduct = async () => {
+  const patchUser = async () => {
     try {
       const res = await api.patch(`/users/${updatedUser.id}`, updatedUser)
       return res.data
@@ -42,7 +42,7 @@ export function EditUser({ user }: { user: User }) {
     }
   }
   const handleUpdate = async () => {
-    await patchProduct()
+    await patchUser()
     queryClient.invalidateQueries({ queryKey: ["users"] })
   }
   const handleRole = (value: string) => {
