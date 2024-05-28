@@ -132,7 +132,7 @@ export function UserProfile() {
       <div className="flex flex-col items-center justify-center gap-6 px-4 py-12 md:px-6 lg:flex-row lg:gap-12">
         <div className="flex flex-col items-center gap-4">
           <Avatar className="h-24 w-24 border-4 border-gray-100 dark:border-gray-800">
-            <AvatarImage alt="User Avatar" src="../src/images/avatar.jpg" />
+            <AvatarImage alt="User Avatar" src="images/avatar.jpg" />
             <AvatarFallback>{user?.fullName}</AvatarFallback>
           </Avatar>
           <div className="text-center lg:text-left">

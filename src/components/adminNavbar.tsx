@@ -89,7 +89,7 @@ export function AdminNavbar() {
             <div className="grid gap-6 p-4">
               <Link className="flex items-center text-[#728b6d] gap-2 text-lg font-semibold" to="/">
                 {/* <LeafIcon className="w-6 h-6 " /> */}
-                <img className="w-8 h-8" src="../src/images/logo.png" />
+                <img className="w-8 h-8" src="images/logo.png" />
                 <span>Soul.</span>
               </Link>
               <nav className="grid gap-4">

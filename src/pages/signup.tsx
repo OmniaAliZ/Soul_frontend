@@ -43,7 +43,7 @@ export function Signup() {
   return (
     <>
       <NavBar />
-      <div className="flex items-center justify-center bg-[url('../src/images/pg.png')] p-8 dark:bg-gray-950 min-h-screen">
+      <div className="flex items-center justify-center bg-[url('images/pg.png')] p-8 dark:bg-gray-950 min-h-screen">
         <div className="w-full max-w-md space-y-8">
           <div className="space-y-4 text-center">
             <div className="inline-block rounded-full bg-primary-500 px-4 py-2 text-sm text-white">

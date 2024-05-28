@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 export function Thankyou() {
   return (
     <>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-[url('../src/images/pg.png')] dark:bg-gray-900 px-4">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[url('images/pg.png')] dark:bg-gray-900 px-4">
         <div className="max-w-md w-full space-y-6 text-center">
           <SparklesIcon className="mx-auto h-12 w-12" />
           <h1 className="text-5xl font-bold tracking-tight text-[#728b6d]">Thank You!</h1>

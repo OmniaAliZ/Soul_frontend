@@ -31,6 +31,6 @@ export function Hero() {
     //     </div>
     //   </div>
     // </section>
-    <img src="../src/images/nature.gif" className="w-full" alt="" />
+    <img src="images/nature.gif" className="w-full" alt="" />
   )
 }

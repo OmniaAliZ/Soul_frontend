@@ -47,7 +47,7 @@ export function NavBar() {
       <header className="flex items-center justify-between h-16 px-4 md:px-6 bg-[#eef2ec] shadow ">
         {/* fixed w-full */}
         <Link className="flex items-center gap-2 text-2xl font-semibold" to="/">
-          <img className="w-8 h-8" src="../src/images/logo.png" />
+          <img className="w-8 h-8" src="images/logo.png" />
           <span>Soul</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -145,7 +145,7 @@ export function NavBar() {
                   <img
                     alt="Avatar"
                     className="rounded-full bg-cover"
-                    src="../src/images/avatar.jpg"
+                    src="images/avatar.jpg"
                     style={{
                       aspectRatio: "32/32",
                       objectFit: "cover"
@@ -180,7 +180,7 @@ export function NavBar() {
             <div className="grid gap-6 p-4">
               <Link className="flex items-center text-[#728b6d] gap-2 text-lg font-semibold" to="/">
                 {/* <LeafIcon className="w-6 h-6" /> */}
-                <img className="w-8 h-8" src="../src/images/logo.png" />
+                <img className="w-8 h-8" src="images/logo.png" />
                 <span>Soul.</span>
               </Link>
               <nav className="grid gap-4">
