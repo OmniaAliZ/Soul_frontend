@@ -8,7 +8,6 @@ export function Home() {
     <>
       <NavBar />
       <Hero />
-      <h1 className="text-2xl uppercase mb-10">Products</h1>
       <ViewProducts />
       <Footer />
     </>

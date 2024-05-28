@@ -132,7 +132,7 @@ export function UserProfile() {
       <div className="flex flex-col items-center justify-center gap-6 px-4 py-12 md:px-6 lg:flex-row lg:gap-12">
         <div className="flex flex-col items-center gap-4">
           <Avatar className="h-24 w-24 border-4 border-gray-100 dark:border-gray-800">
-            <AvatarImage alt="User Avatar" src="/placeholder-user.jpg" />
+            <AvatarImage alt="User Avatar" src="../src/images/avatar.jpg" />
             <AvatarFallback>{user?.fullName}</AvatarFallback>
           </Avatar>
           <div className="text-center lg:text-left">
@@ -332,8 +332,8 @@ export function UserProfile() {
         <h1 className="text-2xl text-start font-bold">Your Addresses</h1>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {addresses?.map((address) => {
-            console.log(address);
-            
+            console.log(address)
+
             return (
               <Card key={address.id}>
                 <CardHeader>

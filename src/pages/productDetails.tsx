@@ -93,7 +93,7 @@ export function ProductDetails() {
   return (
     <>
       <NavBar />
-      <div className="grid md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto py-6">
+      <div className="grid md:grid-cols-2 my-10 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto py-6">
         <div className="grid gap-4 md:gap-10 items-start">
           <div className="grid gap-4">
             <h1 className="font-bold text-3xl lg:text-4xl">{data.name}</h1>

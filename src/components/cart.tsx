@@ -73,7 +73,7 @@ export function Cart() {
           <Button className="rounded-full" size="icon" variant="outline">
             <ShoppingCartIcon className="h-5 w-5" />
             <span className="sr-only">Cart</span>
-            <Badge className="absolute mb-7 ml-10 rounded-full bg-red-500 py-1 text-xs text-white">
+            <Badge className="absolute mb-7 ml-10 rounded-full bg-[#728b6d] hover:pg-[#537052] py-1 text-xs text-white">
               {Object.keys(groups).length}
             </Badge>
           </Button>

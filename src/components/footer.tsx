@@ -6,7 +6,7 @@ import { Separator } from "./ui/separator"
 
 export function Footer() {
   return (
-    <footer className="bg-[#537052] py-2 px-4 md:px-6 lg:px-8">
+    <footer className="bg-[#537052] mt-12 py-2 px-4 md:px-6 lg:px-8">
       <div className="flex flex-col mx-auto pb-4 w-1/2">
         <h3 className="text-lg font-bold text-[#eef2ec] mb-4">Newsletter</h3>
         <p className="text-[#eef2ec] text-sm mb-4">
@@ -45,7 +45,7 @@ export function Footer() {
           <span className="text-lg font-bold mb-4 text-[#eef2ec]">Contact Information</span>
           <p className="text-[#eef2ec] text-start text-sm mb-4">
             123 Green Street, Plant City, PC 12345
-            <br /> Phone: (966) 54-756-7890 <br /> Email: support@soul.com
+            <br /> Phone: (966) 59-000-7402 <br /> Email: support@soul.com
           </p>
           <div className="flex space-x-4">
             <Link className="text-[#eef2ec] hover:text-[#555] dark:hover:text-[#ddd]" to="#">
@@ -75,10 +75,10 @@ export function Footer() {
               <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
                 Contact Us
               </Link>
-              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
+              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/shipping">
                 Shipping Information
               </Link>
-              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
+              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/return">
                 Returns & Exchanges
               </Link>
               <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
@@ -91,55 +91,32 @@ export function Footer() {
           <h3 className="text-lg font-bold text-start text-[#eef2ec] mb-4">Resources</h3>
           <div className="flex justify-start gap-8">
             <nav className="flex flex-col justify-evenly gap-4 items-baseline">
-              <Link
-                className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]"
-                to="/"
-              >
+              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
                 Plant Care Tips
               </Link>
-              <Link
-                className="text-[#666] dark:text-[#aaa] hover:text-[#333] dark:hover:text-[#f0f0f0]"
-                to="/"
-              >
+              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
                 Blog
               </Link>
-              <Link
-                className="text-[#666] dark:text-[#aaa] hover:text-[#333] dark:hover:text-[#f0f0f0]"
-                to="/"
-              >
+              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
                 Planting Guides
               </Link>
-              <Link
-                className="text-[#666] dark:text-[#aaa] hover:text-[#333] dark:hover:text-[#f0f0f0]"
-                to="/"
-              >
+              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
                 Gift Cards
               </Link>
             </nav>
           </div>
         </div>
         <div className="flex flex-col">
-          <h3 className="text-lg font-bold text-start text-[#333] dark:text-[#f0f0f0] mb-4">
-            Legal
-          </h3>
+          <h3 className="text-lg font-bold text-start text-[#eef2ec] mb-4">Legal</h3>
           <div className="flex justify-start gap-8">
             <nav className="flex flex-col justify-evenly gap-4 items-baseline">
-              <Link
-                className="text-[#666] dark:text-[#aaa] hover:text-[#333] dark:hover:text-[#f0f0f0]"
-                to="/"
-              >
+              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
                 Privacy Policy
               </Link>
-              <Link
-                className="text-[#666] dark:text-[#aaa] hover:text-[#333] dark:hover:text-[#f0f0f0]"
-                to="/"
-              >
+              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
                 Terms of Service
               </Link>
-              <Link
-                className="text-[#666] dark:text-[#aaa] hover:text-[#333] dark:hover:text-[#f0f0f0]"
-                to="/"
-              >
+              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
                 Cookie Policy
               </Link>
             </nav>

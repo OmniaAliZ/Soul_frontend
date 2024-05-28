@@ -56,7 +56,7 @@ export function ViewProducts() {
   return (
     <div>
       <div className=" px-2">
-        <form className="flex gap-4 w-full md:w-1/2 mx-auto mb-10" onSubmit={handleSearch}>
+        <form className="flex gap-4 w-full mt-10 md:w-1/2 mx-auto mb-10" onSubmit={handleSearch}>
           <Input
             value={searchBy}
             name="searchBy"
@@ -66,9 +66,10 @@ export function ViewProducts() {
           />
           <Button type="submit">Search</Button>
         </form>
+        <h1 className=" text-5xl font-bold mt-8 uppercase mb-10">Products</h1>
       </div>
       {data?.length === 0 && <p>NO PRODUCTS FOUND</p>}
-      <section className="flex flex-col justify-center md:flex-row gap-4 max-w-6xl mx-auto flex-wrap">
+      <section className="flex flex-col justify-center md:flex-row gap-8 max-w-6xl mx-auto flex-wrap">
         {data?.map((product) => {
           const products = state.cart.filter((p) => p.id === product.id)
           const inStock = product.quantity > products.length
@@ -97,12 +98,12 @@ export function ViewProducts() {
           return (
             <div
               key={product.id}
-              className="rounded-2xl mx-auto w-[350px] overflow-hidden dark:bg-gray-950 group hover:border-2 hover:border-gray-200 dark:hover:border-gray-700 transition-all"
+              className="rounded-2xl mx-auto border-b-2 shadow-sm shadow-[#98a391] border-[#98a391] w-[350px] md:w-[250px] overflow-hidden group hover:shadow-lg hover:shadow-[#98a391] transition-all"
             >
               <div className="relative">
                 <img
                   alt={product.name}
-                  className="w-full h-full object-cover rounded-2xl"
+                  className="w-full h-full object-cover "
                   height={400}
                   src={product.image}
                   style={{
@@ -120,9 +121,9 @@ export function ViewProducts() {
                 </Link>
               </div>
               <div className="p-6 grid gap-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col items-center justify-between">
                   <h3 className="text-xl font-semibold">{product.name}</h3>
-                  <span className="text-xl font-semibold">$ {product.price.toFixed(2)}</span>
+                  <span className="text-base font-semibold">$ {product.price.toFixed(2)}</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <Select onValueChange={handleQuantityChange} defaultValue="1">

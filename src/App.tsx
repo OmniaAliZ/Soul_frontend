@@ -19,12 +19,22 @@ import { AdminNavbar } from "./components/adminNavbar"
 import { UserProfile } from "./pages/userProfile"
 import { ProductByCategory } from "./pages/productByCategory"
 import { Checkout } from "./pages/checkout"
+import { Thankyou } from "./pages/thankyou"
+import { Shipping } from "./pages/shipping"
+import { Return } from "./pages/return"
 // ProductService
 //!!!!!! WHY ALWAYS : Context is missing ERROR ??????????????
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />
+  },
+  {
+    path: "/shipping",
+    element: <Shipping />
+  },{
+    path: "/return",
+    element: <Return />
   },
   {
     path: "/products/:id",
@@ -85,13 +95,18 @@ const router = createBrowserRouter([
         <UserProfile />
       </PrivateRoute>
     )
-  },  {
+  },
+  {
     path: "/checkout",
     element: <Checkout />
   },
   {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: "/thankyou",
+    element: <Thankyou />
   },
   {
     path: "/signup",
@@ -127,7 +142,7 @@ function App() {
       })
     }
   }, [])
-  
+
   const handleAddToCart = (product: Product) => {
     const products = state.cart.filter((p) => p.id === product.id)
     const inStock = product.quantity > products.length

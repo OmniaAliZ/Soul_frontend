@@ -38,51 +38,64 @@ export function NavBar() {
   })
 
   const handleLogout = () => {
-    if (typeof window !== undefined) {
-      window.location.reload()
-    }
     localStorage.removeItem("token")
     localStorage.removeItem("user")
     handleRemoveUser()
   }
   return (
     <>
-      <header className="flex items-center justify-between h-16 px-4 md:px-6 bg-white dark:bg-gray-950 shadow ">
+      <header className="flex items-center justify-between h-16 px-4 md:px-6 bg-[#eef2ec] shadow ">
         {/* fixed w-full */}
-        <Link className="flex items-center gap-2 text-lg font-semibold" to="/">
-          <LeafIcon className="w-6 h-6 text-green-500" />
-          <span>Blooming</span>
+        <Link className="flex items-center gap-2 text-2xl font-semibold" to="/">
+          <img className="w-8 h-8" src="../src/images/logo.png" />
+          <span>Soul</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-          <Link
-            className="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
+          {/* <Link
+            className="text-[#47523f] text-lg hover:text-xl hover:no-underline hover:text-[#30372b] transition-colors"
             to="/"
           >
             Home
-          </Link>
+          </Link> */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <span>Shop</span>
+              <span className="text-[#47523f] text-lg hover:underline hover:text-[#30372b] transition-colors">
+                Shop
+              </span>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Sections</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <Link to="/">
+            <DropdownMenuContent className=" w-56" align="center">
+              <Link className=" hover:no-underline text-[#47523f]" to="/">
                 <DropdownMenuItem>All</DropdownMenuItem>
               </Link>
-              <DropdownMenuSeparator />
               {categories?.map((cat) => {
                 return (
-                  <Link key={cat.id} to={`/products/section/${cat.id}`}>
+                  <Link
+                    className=" hover:no-underline text-[#47523f]"
+                    key={cat.id}
+                    to={`/products/section/${cat.id}`}
+                  >
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem>{cat.name}</DropdownMenuItem>
                   </Link>
                 )
               })}
             </DropdownMenuContent>
           </DropdownMenu>
+          <Link
+            className="text-[#47523f] text-lg hover:underline hover:text-[#30372b] transition-colors"
+            to="/"
+          >
+            About Us
+          </Link>
+          <Link
+            className="text-[#47523f] text-lg hover:underline hover:text-[#30372b] transition-colors"
+            to="/"
+          >
+            Contact
+          </Link>
           {state.user?.role === ROLE.Admin && (
             <Link
-              className="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
+              className="text-[#47523f] text-lg hover:underline hover:text-[#30372b] transition-colors"
               to="/dashboard"
             >
               Dashboard
@@ -90,7 +103,7 @@ export function NavBar() {
           )}
           {!state.user && (
             <Link
-              className="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
+              className="text-[#47523f] text-lg hover:underline hover:text-[#30372b] transition-colors"
               to="/login"
             >
               Login
@@ -98,7 +111,7 @@ export function NavBar() {
           )}
           {!state.user && (
             <Link
-              className="text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 transition-colors"
+              className="text-[#47523f] text-lg hover:underline hover:text-[#30372b] transition-colors"
               to="/signup"
             >
               Signup
@@ -122,25 +135,21 @@ export function NavBar() {
             <span className="sr-only">Cart</span>
           </Button>
         </Link> */}
+        </nav>
+        <div className=" flex items-center gap-6">
           <Cart />
           {state.user && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800"
-                  size="icon"
-                  variant="ghost"
-                >
+                <Button className="rounded-full border" size="icon" variant="ghost">
                   <img
                     alt="Avatar"
-                    className="rounded-full"
-                    height="32"
-                    src="https://img.freepik.com/premium-vector/avatar-profile-vector-illustrations-website-social-networks-user-profile-icon_495897-224.jpg"
+                    className="rounded-full bg-cover"
+                    src="../src/images/avatar.jpg"
                     style={{
                       aspectRatio: "32/32",
                       objectFit: "cover"
                     }}
-                    width="32"
                   />
                   <span className="sr-only">Toggle user menu</span>
                 </Button>
@@ -159,7 +168,7 @@ export function NavBar() {
               </DropdownMenuContent>
             </DropdownMenu>
           )}
-        </nav>
+        </div>
         <Sheet>
           <SheetTrigger asChild>
             <Button className="md:hidden" size="icon" variant="outline">
@@ -169,9 +178,10 @@ export function NavBar() {
           </SheetTrigger>
           <SheetContent side="left">
             <div className="grid gap-6 p-4">
-              <Link className="flex items-center gap-2 text-lg font-semibold" to="/">
-                <LeafIcon className="w-6 h-6 text-green-500" />
-                <span>Blooming.</span>
+              <Link className="flex items-center text-[#728b6d] gap-2 text-lg font-semibold" to="/">
+                {/* <LeafIcon className="w-6 h-6" /> */}
+                <img className="w-8 h-8" src="../src/images/logo.png" />
+                <span>Soul.</span>
               </Link>
               <nav className="grid gap-4">
                 <Link

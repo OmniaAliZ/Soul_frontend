@@ -1,16 +1,16 @@
 import { Separator } from "@/components/ui/separator"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import api from "@/api"
 import { Address, OrderCheckout, Product } from "@/types"
 import { GlobalContext } from "@/App"
-import { ChangeEvent, useContext, useState } from "react"
+import { useContext, useState } from "react"
 import { NavBar } from "@/components/navBar"
 import { Footer } from "@/components/footer"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { Link } from "react-router-dom"
 
 export function Checkout() {
   const provider = useContext(GlobalContext)
@@ -119,7 +119,7 @@ export function Checkout() {
     await postAddress()
     queryClient.invalidateQueries({ queryKey: ["addresses"] })
   }
-  console.log("ID ADDRESS", selectedAddress)
+  console.log("ID ADDRESS", selectedAddress, "ORder")
 
   return (
     <>
@@ -181,11 +181,15 @@ export function Checkout() {
           </div>
           <div className="p-6 space-y-4">
             <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
+              <Label className="text-left font-bold" htmlFor="name">
+                Name
+              </Label>
               <Input disabled id="name" value={state.user?.name} placeholder="Enter your name" />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label className="text-left font-bold" htmlFor="email">
+                Email
+              </Label>
               <Input
                 disabled
                 id="email"
@@ -196,8 +200,8 @@ export function Checkout() {
             </div>
             <div className="grid gap-2">
               <Separator />
-              <Label className="mt-3" htmlFor="address">
-                Address
+              <Label className="mt-3 text-left font-bold" htmlFor="address">
+                Address :
               </Label>
               {addresses && addresses?.length > 0 && (
                 <RadioGroup
@@ -205,7 +209,7 @@ export function Checkout() {
                   onValueChange={handleRadioChange}
                   defaultValue={addresses[0].id}
                   defaultChecked
-                  className="grid gap-2"
+                  className="grid gap-4 my-4"
                 >
                   {addresses?.map((address) => {
                     return (
@@ -257,6 +261,12 @@ export function Checkout() {
                 </form>
               )}
             </div>
+            <div className="grid gap-2">
+              <Separator />
+              <Label className="mt-3 text-left font-bold" htmlFor="address">
+                Address :
+              </Label>
+            </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="card-number">Card Number</Label>
@@ -271,9 +281,11 @@ export function Checkout() {
                 <Input id="cvv" placeholder="123" type="text" />
               </div>
             </div>
-            <Button onClick={handleCheckout} className="w-full" type="submit">
-              Place Order
-            </Button>
+            <Link to="/thankyou">
+              <Button onClick={handleCheckout} className="w-full mt-4" type="submit">
+                Place Order
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

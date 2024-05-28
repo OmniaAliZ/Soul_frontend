@@ -88,7 +88,7 @@ export function Dashboard() {
         <Card className="col-span-1 mb-10 sm:col-span-2 lg:col-span-3">
           <CardHeader className="flex items-center justify-between">
             <CardTitle>Recent Orders</CardTitle>
-            {/* <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4">
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
@@ -113,7 +113,7 @@ export function Dashboard() {
                   </PaginationItem>
                 </PaginationContent>
               </Pagination>
-            </div> */}
+            </div>
           </CardHeader>
           <CardContent>
             <Table className="mt-20 w-4/5 mx-auto">
