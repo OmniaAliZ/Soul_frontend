@@ -75,7 +75,7 @@ export function UserProfile() {
     country: "",
     city: "",
     street: "",
-    zip_code: 0
+    zip_code: undefined
   })
 
   const postAddress = async () => {
@@ -102,7 +102,7 @@ export function UserProfile() {
       country: "",
       city: "",
       street: "",
-      zip_code: 0
+      zip_code: undefined
     })
   }
   const handleAddressSubmit = async () => {

@@ -11,8 +11,13 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select"
+import { Card } from "./ui/card"
 
 export function AddProduct() {
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+
   const queryClient = useQueryClient()
 
   const [product, setProduct] = useState({
@@ -59,9 +64,24 @@ export function AddProduct() {
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    await postProduct()
-    await handleReset()
-    queryClient.invalidateQueries({ queryKey: ["products"] })
+    setLoading(true)
+    setError(null)
+    setSuccess(null)
+    try {
+      await postProduct()
+      setSuccess("Product added successfully!")
+      await handleReset()
+      queryClient.invalidateQueries({ queryKey: ["products"] })
+    } catch (err) {
+      setError("Failed to add product.")
+    } finally {
+      setLoading(false)
+    }
+
+    // e.preventDefault()
+    // await postProduct()
+    // await handleReset()
+    // queryClient.invalidateQueries({ queryKey: ["products"] })
   }
   const handleReset = async () => {
     setProduct({
@@ -85,6 +105,7 @@ export function AddProduct() {
   // })
   return (
     <>
+    <Card className="container py-8">
       <form className="w-1/2 mx-auto" onSubmit={handleSubmit}>
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
           Add new product
@@ -153,7 +174,10 @@ export function AddProduct() {
             Reset
           </Button>
         </div>
-      </form>
+      </form></Card>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {success && <p style={{ color: "green" }}>{success}</p>}
     </>
   )
 }

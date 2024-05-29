@@ -14,6 +14,7 @@ import { EditProduct } from "./editProduct"
 import { DeleteProduct } from "./deleteProduct"
 import ProductService from "../api/products"
 import categoryService from "../api/categories"
+import { Card } from "./ui/card"
 
 export function ProductTable() {
   const { data: products, error } = useQuery<Product[]>({
@@ -47,7 +48,8 @@ export function ProductTable() {
 
   return (
     <>
-      <Table className="mt-20 w-4/5 mx-auto">
+    <Card className=" mt-10 col-span-1 mx-4 mb-10 sm:col-span-2 lg:col-span-3">
+      <Table className="mt-20 w-4/5 mb-10 mx-auto">
         <TableCaption>A list of products.</TableCaption>
         <TableHeader>
           <TableRow>
@@ -81,7 +83,7 @@ export function ProductTable() {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+      </Table></Card>
       {error && <p className="text-red-500">{error.message}</p>}
     </>
   )

@@ -3,6 +3,7 @@ import { Button } from "./ui/button"
 import { useState } from "react"
 import api from "@/api"
 import { useQueryClient } from "@tanstack/react-query"
+import { Card } from "./ui/card"
 
 export function AddCategory() {
   const queryClient = useQueryClient()
@@ -40,7 +41,7 @@ export function AddCategory() {
     })
   }
   return (
-    <>
+    <><Card className="container py-8">
       <form className="w-1/2 mx-auto" onSubmit={handleSubmit}>
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
           Add new category
@@ -70,7 +71,7 @@ export function AddCategory() {
             Reset
           </Button>
         </div>
-      </form>
+      </form></Card>
     </>
   )
 }

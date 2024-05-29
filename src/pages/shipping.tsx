@@ -7,13 +7,13 @@ export function Shipping() {
   return (
     <>
       <NavBar />
-      <div className=" flex flex-col my-8 ml-10 text-left gap-10">
+      <div className=" flex flex-col my-8 ml-10 gap-10">
         <h1 className=" font-bold text-4xl">Shipping Information</h1>
         <p>
           At Soul, we aim to deliver your plants in the best condition possible. Please read through
           our shipping information to understand our processes and policies.
         </p>
-        <Separator/>
+        <Separator />
         <section>
           <h2 className=" text-2xl font-semibold mb-2">Shipping Rates & Times</h2>
           <p>
@@ -26,7 +26,7 @@ export function Shipping() {
             <li>Next Day Shipping (1 business day): $19.99</li>
           </ul>
         </section>
-        <Separator/>
+        <Separator />
         <section>
           <h2 className=" text-2xl font-semibold mb-2">Order Processing</h2>
           <p>
@@ -34,7 +34,7 @@ export function Shipping() {
             be processed the next business day. Please allow 1-2 business days for order processing.
           </p>
         </section>
-        <Separator/>
+        <Separator />
         <section>
           <h2 className=" text-2xl font-semibold mb-2">Packaging</h2>
           <p>
@@ -42,7 +42,7 @@ export function Shipping() {
             Each plant is carefully wrapped and cushioned to protect it during transit.
           </p>
         </section>
-        <Separator/>
+        <Separator />
         <section>
           <h2 className=" text-2xl font-semibold mb-2">International Shipping</h2>
           <p>
@@ -50,7 +50,7 @@ export function Shipping() {
             options to include international destinations in the near future.
           </p>
         </section>
-        <Separator/>
+        <Separator />
         <section>
           <h2 className=" text-2xl font-semibold mb-2">Tracking Your Order</h2>
           <p>
@@ -58,7 +58,7 @@ export function Shipping() {
             number. You can use this number to track your order on our shipping partners website.
           </p>
         </section>
-        <Separator/>
+        <Separator />
         <section>
           <h2 className=" text-2xl font-semibold mb-2">Returns & Exchanges</h2>
           <p>

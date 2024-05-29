@@ -13,6 +13,7 @@ import {
 } from "./ui/table"
 import { EditUser } from "./editUser"
 import { DeleteUser } from "./deleteUser"
+import { Card } from "./ui/card"
 
 export function UsersTable() {
   const getUsers = async () => {
@@ -35,33 +36,35 @@ export function UsersTable() {
   })
   return (
     <>
-      <Table className="mt-20 w-4/5 mx-auto">
-        <TableCaption>A list of Users.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="text-left">Full Name</TableHead>
-            <TableHead className="text-left">Email</TableHead>
-            <TableHead className="text-left">Phone</TableHead>
-            <TableHead className="text-left">Role</TableHead>
-            <TableHead className="text-left"></TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data?.map((user) => (
-            <TableRow key={user?.id}>
-              <TableCell className="text-left">{user?.fullName}</TableCell>
-              <TableCell className="text-left">{user?.email}</TableCell>
-              <TableCell className="text-left">{user?.phone}</TableCell>
-              <TableCell className="text-left">{user?.role}</TableCell>
-              <TableCell className="flex justify-around">
-                <EditUser user={user} />
-                <DeleteUser user={user} />
-                {/* NOT YET : HOW TO BLOCK */}
-              </TableCell>
+      <Card className=" mt-10 col-span-1 mx-4 mb-10 sm:col-span-2 lg:col-span-3">
+        <Table className="mt-20 w-4/5 mb-10 mx-auto">
+          <TableCaption>A list of Users.</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-left">Full Name</TableHead>
+              <TableHead className="text-left">Email</TableHead>
+              <TableHead className="text-left">Phone</TableHead>
+              <TableHead className="text-left">Role</TableHead>
+              <TableHead className="text-left"></TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {data?.map((user) => (
+              <TableRow key={user?.id}>
+                <TableCell className="text-left">{user?.fullName}</TableCell>
+                <TableCell className="text-left">{user?.email}</TableCell>
+                <TableCell className="text-left">{user?.phone}</TableCell>
+                <TableCell className="text-left">{user?.role}</TableCell>
+                <TableCell className="flex justify-around">
+                  <EditUser user={user} />
+                  <DeleteUser user={user} />
+                  {/* NOT YET : HOW TO BLOCK */}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Card>
       {error && <p className="text-red-500">{error.message}</p>}
     </>
   )

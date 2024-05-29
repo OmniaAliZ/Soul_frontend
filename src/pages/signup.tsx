@@ -7,6 +7,7 @@ import api from "@/api"
 import { ChangeEvent, FormEvent, useState } from "react"
 import { NavBar } from "@/components/navBar"
 import { Footer } from "@/components/footer"
+import { Separator } from "@/components/ui/separator"
 //!!!!!!DESIGN?????
 export function Signup() {
   const navigate = useNavigate()
@@ -43,22 +44,23 @@ export function Signup() {
   return (
     <>
       <NavBar />
+      <Separator />
       <div className="flex items-center justify-center bg-[url('images/pg.png')] p-8 dark:bg-gray-950 min-h-screen">
         <div className="w-full max-w-md space-y-8">
           <div className="space-y-4 text-center">
-            <div className="inline-block rounded-full bg-primary-500 px-4 py-2 text-sm text-white">
+            <div className="inline-block rounded-full bg-primary-500 px-4 py-2 text-sm text-[#728b6d]">
               Join our growing community
             </div>
-            <h1 className="text-4xl font-bold tracking-tight text-white">
+            <h1 className="text-4xl font-bold tracking-tight text-[#728b6d]">
               Unlock Your Potential with Our Innovative Platform
             </h1>
-            <p className="text-gray-200">
+            <p className="text-[#728b6d]">
               Create your account and start exploring our cutting-edge features.
             </p>
           </div>
           <form action="POST" onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-3">
-              <Label className="text-gray-200" htmlFor="name">
+              <Label className="text-[#47523f]" htmlFor="name">
                 Full Name
               </Label>
               <div className="relative">
@@ -76,7 +78,7 @@ export function Signup() {
               </div>
             </div>
             <div className="space-y-3">
-              <Label className="text-gray-200" htmlFor="email">
+              <Label className="text-[#47523f]" htmlFor="email">
                 Email Address
               </Label>
               <div className="relative">
@@ -95,7 +97,7 @@ export function Signup() {
               </div>
             </div>
             <div className="space-y-3">
-              <Label className="text-gray-200" htmlFor="password">
+              <Label className="text-[#47523f]" htmlFor="password">
                 Password
               </Label>
               <div className="relative">
@@ -115,7 +117,7 @@ export function Signup() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-gray-200" htmlFor="password">
+              <Label className="text-[#47523f]" htmlFor="password">
                 Phone Number
               </Label>
               <div className="relative">
@@ -141,10 +143,10 @@ export function Signup() {
               Sign Up
             </Button>
           </form>
-          <div className="text-center text-sm text-gray-300">
+          <div className="text-center text-sm text-[#47523f]">
             Already have an account?
             <Link
-              className="font-medium text-primary-500 underline underline-offset-2 hover:text-primary-400 dark:text-primary-400 dark:hover:text-primary-300"
+              className="font-medium ml-1 text-primary-500 underline underline-offset-2 hover:text-primary-400 dark:text-primary-400 dark:hover:text-primary-300"
               to="/login"
             >
               Sign In

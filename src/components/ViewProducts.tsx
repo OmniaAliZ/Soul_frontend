@@ -1,30 +1,23 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react"
-import { Input } from "./ui/input"
+import { useContext, useState } from "react"
 import api from "@/api"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { Product } from "@/types"
 import { Button } from "./ui/button"
-import { useSearchParams, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { GlobalContext } from "@/App"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { EyeIcon } from "lucide-react"
-//!!!!!!!! HOW TO DELETE (SEARCH BY) FROM QUERY ?????????
-////!!!!!!!!! WHEN MD PICS GET HUUUUGEEEE????
 
 export function ViewProducts() {
   const provider = useContext(GlobalContext)
   if (!provider) throw Error("Context is missing")
   const { state, handleAddToCart } = provider
 
-  const queryClient = useQueryClient()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const defaultSearch = searchParams.get("searchBy") || ""
-  const [searchBy, setSearchBy] = useState(defaultSearch)
   const [selectedQuantity, setSelectedQuantity] = useState(1)
 
   const getProducts = async () => {
     try {
-      const res = await api.get(`/products?searchBy=${searchBy}`)
+      const res = await api.get(`/products`)
       return res.data
     } catch (error) {
       console.error(error)
@@ -36,41 +29,16 @@ export function ViewProducts() {
     queryFn: getProducts
   })
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    setSearchBy(value)
-  }
-  const handleSearch = async (e: FormEvent) => {
-    e.preventDefault()
-    if (searchBy) {
-      setSearchParams({ ...searchParams, searchBy: searchBy })
-    } else {
-      setSearchParams({ ...searchParams })
-    }
-    queryClient.invalidateQueries({ queryKey: ["products"] })
-  }
   const handleQuantityChange = (value: string) => {
     setSelectedQuantity(Number(value))
   }
 
   return (
-    <div>
-      <div className=" px-2">
-        <form className="flex gap-4 w-full mt-10 md:w-1/2 mx-auto mb-10" onSubmit={handleSearch}>
-          <Input
-            value={searchBy}
-            name="searchBy"
-            type="search"
-            onChange={handleChange}
-            placeholder="Search..."
-          />
-          <Button type="submit">Search</Button>
-        </form>
-        <h1 className=" text-5xl font-bold mt-8 uppercase mb-10">Products</h1>
-      </div>
+    <div className="pb-16">
+      <h1 className=" text-5xl font-bold mt-8 uppercase mb-10">Products</h1>
       {data?.length === 0 && <p>NO PRODUCTS FOUND</p>}
       <section className="flex flex-col justify-center md:flex-row gap-8 max-w-6xl mx-auto flex-wrap">
-        {data?.map((product) => {
+        {data?.slice(0, 8).map((product) => {
           const products = state.cart.filter((p) => p.id === product.id)
           const inStock = product.quantity > products.length
 
@@ -160,6 +128,9 @@ export function ViewProducts() {
           )
         })}
       </section>
+      <Link to="/products">
+        <Button className="mt-10">All Products</Button>
+      </Link>
       {error && <p className="text-red-500">{error.message}</p>}
     </div>
   )

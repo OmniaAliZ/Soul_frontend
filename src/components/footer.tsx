@@ -6,7 +6,7 @@ import { Separator } from "./ui/separator"
 
 export function Footer() {
   return (
-    <footer className="bg-[#537052] mt-12 py-2 px-4 md:px-6 lg:px-8">
+    <footer className="bg-[#537052] py-2 px-4 md:px-6 lg:px-8">
       <div className="flex flex-col mx-auto pb-4 w-1/2">
         <h3 className="text-lg font-bold text-[#eef2ec] mb-4">Newsletter</h3>
         <p className="text-[#eef2ec] text-sm mb-4">
@@ -72,13 +72,22 @@ export function Footer() {
           <h3 className="text-lg font-bold text-start text-[#eef2ec] mb-4">Customer Service</h3>
           <div className="flex justify-start gap-8">
             <nav className="flex flex-col justify-evenly gap-4 items-baseline">
-              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
+              <Link
+                className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]"
+                to="/contact"
+              >
                 Contact Us
               </Link>
-              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/shipping">
+              <Link
+                className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]"
+                to="/shipping"
+              >
                 Shipping Information
               </Link>
-              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/return">
+              <Link
+                className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]"
+                to="/return"
+              >
                 Returns & Exchanges
               </Link>
               <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
@@ -91,13 +100,19 @@ export function Footer() {
           <h3 className="text-lg font-bold text-start text-[#eef2ec] mb-4">Resources</h3>
           <div className="flex justify-start gap-8">
             <nav className="flex flex-col justify-evenly gap-4 items-baseline">
-              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
+              <Link
+                className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]"
+                to="/care"
+              >
                 Plant Care Tips
               </Link>
               <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
                 Blog
               </Link>
-              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
+              <Link
+                className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]"
+                to="/planting"
+              >
                 Planting Guides
               </Link>
               <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">

@@ -11,11 +11,11 @@ import {
   Select
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import { NavBar } from "@/components/navBar"
 import { FormEvent, useContext, useState } from "react"
 import { GlobalContext } from "@/App"
 import { Product } from "@/types"
 import { Footer } from "@/components/footer"
+import { NavBar } from "@/components/navBar"
 //!!!!!!! VIEW PRODUCTS UNDER??????????
 export function ProductDetails() {
   const provider = useContext(GlobalContext)

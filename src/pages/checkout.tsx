@@ -57,8 +57,10 @@ export function Checkout() {
   })
 
   let defaultAddress = ""
-  if (addresses) {
-    defaultAddress = addresses[0].id
+  if (addresses && addresses?.length > 0) {
+    if (addresses[0].id) {
+      defaultAddress = addresses[0].id
+    }
   }
   const [selectedAddress, setSelectedAddress] = useState(defaultAddress)
 

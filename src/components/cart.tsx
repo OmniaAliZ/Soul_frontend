@@ -140,7 +140,7 @@ export function Cart() {
                 {!state.user && (
                   <Button
                     onClick={function () {
-                      alert("test")
+                      alert("Please login first!")
                     }}
                     className="flex-1 w-40"
                   >

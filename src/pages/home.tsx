@@ -1,3 +1,5 @@
+import { Banner } from "@/components/banner"
+import { BestSeller } from "@/components/bestSeller"
 import { Footer } from "@/components/footer"
 import { Hero } from "@/components/hero"
 import { NavBar } from "@/components/navBar"
@@ -8,6 +10,8 @@ export function Home() {
     <>
       <NavBar />
       <Hero />
+      <BestSeller />
+      <Banner />
       <ViewProducts />
       <Footer />
     </>

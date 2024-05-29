@@ -8,7 +8,7 @@ import {
   DropdownMenu
 } from "@/components/ui/dropdown-menu"
 import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet"
-import { LeafIcon, MenuIcon, ShoppingCartIcon } from "lucide-react"
+import { MenuIcon, ShoppingCartIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Cart } from "@/components/cart"
 import { GlobalContext } from "@/App"
@@ -51,12 +51,12 @@ export function NavBar() {
           <span>Soul</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-          {/* <Link
+          <Link
             className="text-[#47523f] text-lg hover:text-xl hover:no-underline hover:text-[#30372b] transition-colors"
             to="/"
           >
             Home
-          </Link> */}
+          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <span className="text-[#47523f] text-lg hover:underline hover:text-[#30372b] transition-colors">
@@ -64,7 +64,7 @@ export function NavBar() {
               </span>
             </DropdownMenuTrigger>
             <DropdownMenuContent className=" w-56" align="center">
-              <Link className=" hover:no-underline text-[#47523f]" to="/">
+              <Link className=" hover:no-underline text-[#47523f]" to="/products">
                 <DropdownMenuItem>All</DropdownMenuItem>
               </Link>
               {categories?.map((cat) => {
@@ -89,7 +89,7 @@ export function NavBar() {
           </Link>
           <Link
             className="text-[#47523f] text-lg hover:underline hover:text-[#30372b] transition-colors"
-            to="/"
+            to="/contact"
           >
             Contact
           </Link>
@@ -154,15 +154,19 @@ export function NavBar() {
                   <span className="sr-only">Toggle user menu</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuContent align="center">
+                <DropdownMenuLabel className=" hover:no-underline text-[#47523f]">
+                  My Account
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <Link to="/profile">
+                <Link className=" hover:no-underline text-[#47523f]" to="/profile">
                   <DropdownMenuItem>Settings</DropdownMenuItem>
                 </Link>
-                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuItem className=" hover:no-underline text-[#47523f]">
+                  Support
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <Link onClick={handleLogout} to="/">
+                <Link className=" hover:no-underline text-[#47523f]" onClick={handleLogout} to="/">
                   <DropdownMenuItem>Logout</DropdownMenuItem>
                 </Link>
               </DropdownMenuContent>

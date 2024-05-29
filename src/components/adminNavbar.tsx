@@ -27,7 +27,7 @@ export function AdminNavbar() {
   }
   return (
     <>
-      <header className="flex items-center justify-between mb-28 h-16 px-4 md:px-6 bg-white dark:bg-gray-950 shadow ">
+      <header className="flex items-center justify-between mb-8 h-16 px-4 md:px-6 bg-white dark:bg-gray-950 shadow ">
         {/* fixed w-full */}
         <Link className="flex items-center gap-2 text-lg font-semibold" to="/">
           <GalleryVerticalEndIcon className="w-6 h-6 " />

@@ -49,19 +49,17 @@ export function Dashboard() {
     <>
       <AdminNavbar />
       <div className="flex flex-col mx-auto mb-6">
-        {/* <div> */}
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <p className="text-gray-500 dark:text-gray-400">Welcome back, {state.user?.name}</p>
-        {/* </div> */}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 mx-4 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <Card>
           <CardHeader className="flex items-center justify-between">
             <CardTitle>Total Revenue</CardTitle>
             <DollarSignIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">$45,231.89</div>
+            <div className="text-3xl text-[#47523f] font-bold">$45,231.89</div>
             <p className="text-sm text-gray-500 dark:text-gray-400">+20.1% from last month</p>
           </CardContent>
         </Card>
@@ -71,7 +69,7 @@ export function Dashboard() {
             <UsersIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">+2,350</div>
+            <div className="text-3xl text-[#47523f] font-bold">+2,350</div>
             <p className="text-sm text-gray-500 dark:text-gray-400">+180.1% from last month</p>
           </CardContent>
         </Card>
@@ -81,7 +79,7 @@ export function Dashboard() {
             <CreditCardIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">+12,234</div>
+            <div className="text-3xl text-[#47523f] font-bold">+12,234</div>
             <p className="text-sm text-gray-500 dark:text-gray-400">+19% from last month</p>
           </CardContent>
         </Card>

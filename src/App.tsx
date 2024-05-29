@@ -22,6 +22,12 @@ import { Checkout } from "./pages/checkout"
 import { Thankyou } from "./pages/thankyou"
 import { Shipping } from "./pages/shipping"
 import { Return } from "./pages/return"
+import { Footer } from "./components/footer"
+import { AllProducts } from "./pages/allProducts"
+import { Contact } from "./pages/contact"
+import { PlantCare } from "./pages/plantCare"
+import { PlantingGuide } from "./pages/plantingGuide"
+import { FAQ } from "./pages/faq"
 // ProductService
 //!!!!!! WHY ALWAYS : Context is missing ERROR ??????????????
 const router = createBrowserRouter([
@@ -32,7 +38,8 @@ const router = createBrowserRouter([
   {
     path: "/shipping",
     element: <Shipping />
-  },{
+  },
+  {
     path: "/return",
     element: <Return />
   },
@@ -60,6 +67,7 @@ const router = createBrowserRouter([
           <AdminNavbar />
           <AddProduct />
           <ProductTable />
+          <Footer />
         </>
       </PrivateRoute>
     )
@@ -72,6 +80,7 @@ const router = createBrowserRouter([
           <AdminNavbar />
           <AddUser />
           <UsersTable />
+          <Footer />
         </>
       </PrivateRoute>
     )
@@ -84,6 +93,7 @@ const router = createBrowserRouter([
           <AdminNavbar />
           <AddCategory />
           <CategoriesTable />
+          <Footer />
         </>
       </PrivateRoute>
     )
@@ -91,9 +101,9 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: (
-      <PrivateRoute>
-        <UserProfile />
-      </PrivateRoute>
+      // <PrivateRoute>
+      <UserProfile />
+      // </PrivateRoute>
     )
   },
   {
@@ -101,8 +111,28 @@ const router = createBrowserRouter([
     element: <Checkout />
   },
   {
+    path: "/contact",
+    element: <Contact />
+  },
+  {
+    path: "/care",
+    element: <PlantCare />
+  },
+  {
+    path: "/planting",
+    element: <PlantingGuide />
+  },
+  {
+    path: "/faq",
+    element: <FAQ />
+  },
+  {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: "/products",
+    element: <AllProducts />
   },
   {
     path: "/thankyou",
