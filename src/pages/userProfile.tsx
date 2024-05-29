@@ -18,9 +18,11 @@ import { ChangeEvent, useContext, useState } from "react"
 import { GlobalContext } from "@/App"
 import api from "@/api"
 import { Address, User } from "@/types"
-import { Underline } from "lucide-react"
+// import { Underline } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Footer } from "@/components/footer"
+
+//!!!!!!!!  ADD DELETE ADDRESS FEATURE
 
 export function UserProfile() {
   const provider = useContext(GlobalContext)
@@ -329,7 +331,9 @@ export function UserProfile() {
           </Card>
         </div>
         <Separator />
-        <h1 className="text-2xl text-start font-bold">Your Addresses</h1>
+        {addresses && addresses?.length > 0 && (
+          <h1 className="text-2xl text-start font-bold">Your Addresses</h1>
+        )}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {addresses?.map((address) => {
             console.log(address)

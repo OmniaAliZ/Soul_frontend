@@ -64,7 +64,7 @@ export function ProductByCategory() {
         {cat?.name}
       </h1>
       {data?.length === 0 && <p>NO PRODUCTS FOUND</p>}
-      <section className="flex flex-col justify-center md:flex-row gap-8 max-w-6xl mx-auto flex-wrap">
+      <section className="flex flex-col justify-center md:flex-row gap-8 mb-20 max-w-6xl mx-auto flex-wrap">
         {data?.map((product) => {
           const products = state.cart.filter((p) => p.id === product.id)
           const inStock = product.quantity > products.length

@@ -52,7 +52,7 @@ export function NavBar() {
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           <Link
-            className="text-[#47523f] text-lg hover:text-xl hover:no-underline hover:text-[#30372b] transition-colors"
+            className="text-[#47523f] text-lg hover:underline hover:text-[#30372b] transition-colors"
             to="/"
           >
             Home

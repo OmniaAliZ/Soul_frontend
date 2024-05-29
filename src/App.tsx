@@ -28,6 +28,7 @@ import { Contact } from "./pages/contact"
 import { PlantCare } from "./pages/plantCare"
 import { PlantingGuide } from "./pages/plantingGuide"
 import { FAQ } from "./pages/faq"
+import { About } from "./pages/about"
 // ProductService
 //!!!!!! WHY ALWAYS : Context is missing ERROR ??????????????
 const router = createBrowserRouter([
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/return",
     element: <Return />
+  },
+  {
+    path: "/about",
+    element: <About />
   },
   {
     path: "/products/:id",

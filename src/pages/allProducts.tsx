@@ -16,8 +16,6 @@ import {
 } from "@/components/ui/select"
 import { NavBar } from "@/components/navBar"
 import { Footer } from "@/components/footer"
-//!!!!!!!! HOW TO DELETE (SEARCH BY) FROM QUERY ?????????
-////!!!!!!!!! WHEN MD PICS GET HUUUUGEEEE????
 
 export function AllProducts() {
   const provider = useContext(GlobalContext)
@@ -66,6 +64,7 @@ export function AllProducts() {
       <NavBar />
       <div className="pb-16">
         <div className=" px-2">
+          <h1 className=" text-5xl font-bold mt-12 uppercase mb-10">All Products</h1>
           <form className="flex gap-4 w-full mt-10 md:w-1/2 mx-auto mb-10" onSubmit={handleSearch}>
             <Input
               value={searchBy}
@@ -76,7 +75,6 @@ export function AllProducts() {
             />
             <Button type="submit">Search</Button>
           </form>
-          <h1 className=" text-5xl font-bold mt-8 uppercase mb-10">All Products</h1>
         </div>
         {data?.length === 0 && <p>NO PRODUCTS FOUND</p>}
         <section className="flex flex-col justify-center md:flex-row gap-8 max-w-6xl mx-auto flex-wrap">
