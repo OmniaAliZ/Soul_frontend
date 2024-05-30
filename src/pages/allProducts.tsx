@@ -30,7 +30,7 @@ export function AllProducts() {
 
   const getProducts = async () => {
     try {
-      const res = await api.get(`products?searchBy=${searchBy}`)
+      const res = await api.get(`/products?searchBy=${searchBy}`)
       return res.data
     } catch (error) {
       console.error(error)
@@ -122,7 +122,7 @@ export function AllProducts() {
                   />
                   <Link
                     className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md group-hover:bg-gray-100 transition-colors dark:bg-gray-800 dark:group-hover:bg-gray-700"
-                    to={`products/${product.id}`}
+                    to={`/products/${product.id}`}
                   >
                     <EyeIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                     <span className="sr-only">View Details</span>
