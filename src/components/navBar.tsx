@@ -83,7 +83,7 @@ export function NavBar() {
           </DropdownMenu>
           <Link
             className="text-[#47523f] text-lg hover:underline hover:text-[#30372b] transition-colors"
-            to="/"
+            to="/about"
           >
             About Us
           </Link>

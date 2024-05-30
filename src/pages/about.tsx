@@ -5,9 +5,9 @@ export function About(){
     return (
         <>
         <NavBar/>
-        <section className="bg-cover bg-center h-96 bg-[url('https://via.placeholder.com/1200x800')]">
+        <section className="bg-cover bg-center h-96 bg-[url('images/about.jpg')]">
   <div className="bg-black bg-opacity-50 h-full flex items-center justify-center">
-    <h1 className="text-4xl font-bold text-white text-center">About Us</h1>
+    <h1 className="text-6xl font-bold text-[#eef2ec] text-center">About Us</h1>
   </div>
 </section>
 
@@ -16,7 +16,7 @@ export function About(){
   <div className="container mx-auto px-6">
     <div className="flex flex-col lg:flex-row items-center">
       <div className="lg:w-1/2">
-        <img src="https://via.placeholder.com/600x400" alt="Our Team" className="rounded-lg shadow-lg"/>
+        <img src="images/about2.jpeg" alt="Our Team" className="rounded-lg shadow-lg w-full h-96 object-cover"/>
       </div>
       <div className="lg:w-1/2 lg:pl-12 mt-6 lg:mt-0">
         <h2 className="text-3xl font-bold mb-4">Our Story</h2>
@@ -41,7 +41,7 @@ export function About(){
     <p className="text-gray-700 mb-6">
       At Soul, our mission is to make the beauty and benefits of plants accessible to everyone. We are committed to providing high-quality plants, exceptional customer service, and valuable resources to help you on your plant journey.
     </p>
-    <img src="https://via.placeholder.com/1200x400" alt="Our Mission" className="rounded-lg shadow-lg mx-auto"/>
+    <img src="images/about3.jpg" alt="Our Mission" className="rounded-lg w-full h-96 object-cover shadow-lg mx-auto"/>
   </div>
 </section>
 
@@ -49,10 +49,9 @@ export function About(){
 <section className="py-12">
   <div className="container mx-auto px-6">
     <h2 className="text-3xl font-bold text-center mb-12">Our Values</h2>
-    <div className="flex flex-col lg:flex-row justify-between items-center">
+    <div className="flex flex-col lg:flex-row  gap-6 h-18 justify-between items-center">
       <div className="lg:w-1/3 mb-8 lg:mb-0">
         <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-          <img src="https://via.placeholder.com/100x100" alt="Quality" className="mx-auto mb-4"/>
           <h3 className="text-xl font-bold mb-2">Quality</h3>
           <p className="text-gray-700">
             We are committed to sourcing the highest quality plants to ensure you receive the best products.
@@ -61,7 +60,6 @@ export function About(){
       </div>
       <div className="lg:w-1/3 mb-8 lg:mb-0">
         <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-          <img src="https://via.placeholder.com/100x100" alt="Sustainability" className="mx-auto mb-4"/>
           <h3 className="text-xl font-bold mb-2">Sustainability</h3>
           <p className="text-gray-700">
             We prioritize sustainable practices to protect the environment and promote a greener future.
@@ -70,7 +68,6 @@ export function About(){
       </div>
       <div className="lg:w-1/3">
         <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-          <img src="https://via.placeholder.com/100x100" alt="Community" className="mx-auto mb-4"/>
           <h3 className="text-xl font-bold mb-2">Community</h3>
           <p className="text-gray-700">
             We believe in building a community of plant lovers and sharing our knowledge and passion with you.
