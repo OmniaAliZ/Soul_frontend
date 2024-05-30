@@ -30,7 +30,7 @@ export function AllProducts() {
 
   const getProducts = async () => {
     try {
-      const res = await api.get(`/products?searchBy=${searchBy}`)
+      const res = await api.get(`products?searchBy=${searchBy}`)
       return res.data
     } catch (error) {
       console.error(error)
