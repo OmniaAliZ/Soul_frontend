@@ -5,7 +5,7 @@ export function About(){
     return (
         <>
         <NavBar/>
-        <section className="bg-cover bg-center h-96 bg-[url('images/about.jpg')]">
+        <section className="bg-cover bg-center h-96 bg-[url('../images/about.jpg')]">
   <div className="bg-black bg-opacity-50 h-full flex items-center justify-center">
     <h1 className="text-6xl font-bold text-[#eef2ec] text-center">About Us</h1>
   </div>
