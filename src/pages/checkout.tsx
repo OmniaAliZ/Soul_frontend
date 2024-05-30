@@ -257,7 +257,7 @@ export function Checkout() {
                       placeholder="Enter your street"
                     />
                   </div>
-                  <Button className="w-full" type="submit">
+                  <Button className="w-full mt-2" type="submit">
                     Add Address
                   </Button>
                 </form>
