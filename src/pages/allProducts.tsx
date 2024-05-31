@@ -108,9 +108,8 @@ export function AllProducts() {
                 key={product.id}
                 className="rounded-2xl mx-auto border-b-2 shadow-sm shadow-[#98a391] border-[#98a391] w-[350px] md:w-[250px] overflow-hidden group hover:shadow-lg hover:shadow-[#98a391] transition-all"
               >
-                {" "}
-                <Link className=" hover:no-underline" to={`/products/${product.id}`}>
-                  <div className="relative">
+                <div className="relative">
+                  <Link className=" hover:no-underline" to={`/products/${product.id}`}>
                     <img
                       alt={product.name}
                       className="w-full h-full object-cover "
@@ -122,51 +121,51 @@ export function AllProducts() {
                       }}
                       width={400}
                     />
-                    <Link
-                      className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md group-hover:bg-gray-100 transition-colors dark:bg-gray-800 dark:group-hover:bg-gray-700"
-                      to={`/products/${product.id}`}
-                    >
-                      <EyeIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                      <span className="sr-only">View Details</span>
-                    </Link>
+                  </Link>
+                  <Link
+                    className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md group-hover:bg-gray-100 transition-colors dark:bg-gray-800 dark:group-hover:bg-gray-700"
+                    to={`/products/${product.id}`}
+                  >
+                    <EyeIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                    <span className="sr-only">View Details</span>
+                  </Link>
+                </div>
+                <div className="p-6 grid gap-4">
+                  <div className="flex flex-col items-center justify-between">
+                    <h3 className="text-xl font-semibold">{product.name}</h3>
+                    <span className="text-base font-semibold">$ {product.price.toFixed(2)}</span>
                   </div>
-                  <div className="p-6 grid gap-4">
-                    <div className="flex flex-col items-center justify-between">
-                      <h3 className="text-xl font-semibold">{product.name}</h3>
-                      <span className="text-base font-semibold">$ {product.price.toFixed(2)}</span>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <Select onValueChange={handleQuantityChange} defaultValue="1">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Qty" />
-                        </SelectTrigger>
-                        <SelectContent className="w-24">
-                          {select?.map((x) => {
-                            const value = ++x
-                            return (
-                              <SelectItem value={value.toString()} key={value}>
-                                {value}
-                              </SelectItem>
-                            )
-                          })}
-                        </SelectContent>
-                      </Select>
-                      <Button
-                        disabled={!inStock}
-                        onClick={() => {
-                          const quantities = [...Array(selectedQuantity).keys()]
+                  <div className="flex items-center gap-4">
+                    <Select onValueChange={handleQuantityChange} defaultValue="1">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Qty" />
+                      </SelectTrigger>
+                      <SelectContent className="w-24">
+                        {select?.map((x) => {
+                          const value = ++x
+                          return (
+                            <SelectItem value={value.toString()} key={value}>
+                              {value}
+                            </SelectItem>
+                          )
+                        })}
+                      </SelectContent>
+                    </Select>
+                    <Button
+                      disabled={!inStock}
+                      onClick={() => {
+                        const quantities = [...Array(selectedQuantity).keys()]
 
-                          quantities.map(() => {
-                            handleAddToCart(product)
-                          })
-                        }}
-                        className="flex-1"
-                      >
-                        {inStock ? "Add to Cart" : "Out of Stock"}
-                      </Button>
-                    </div>
+                        quantities.map(() => {
+                          handleAddToCart(product)
+                        })
+                      }}
+                      className="flex-1"
+                    >
+                      {inStock ? "Add to Cart" : "Out of Stock"}
+                    </Button>
                   </div>
-                </Link>
+                </div>
               </div>
             )
           })}

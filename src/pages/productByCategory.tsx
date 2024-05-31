@@ -96,6 +96,7 @@ export function ProductByCategory() {
               className="rounded-2xl mx-auto border-b-2 shadow-sm shadow-[#98a391] border-[#98a391] w-[350px] md:w-[250px] overflow-hidden group hover:shadow-lg hover:shadow-[#98a391] transition-all"
             >
               <div className="relative">
+                <Link className=" hover:no-underline" to={`/products/${product.id}`}>
                 <img
                   alt={product.name}
                   className="w-full h-full object-cover rounded-2xl"
@@ -106,7 +107,7 @@ export function ProductByCategory() {
                     objectFit: "cover"
                   }}
                   width={400}
-                />
+                /></Link>
                 <Link
                   className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md group-hover:bg-gray-100 transition-colors dark:bg-gray-800 dark:group-hover:bg-gray-700"
                   to={`/products/${product.id}`}
