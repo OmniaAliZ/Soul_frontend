@@ -18,8 +18,8 @@ export function Contact() {
 
       <div className="flex flex-col md:flex-row gap-6 mx-auto">
         {/* <!-- Contact Form --> */}
-        <Card className=" container flex-1 mx-28 mb-20">
-          <form className=" p-6 rounded-lg shadow-sm">
+        <Card className=" container p-6 rounded-lg shadow-sm flex-1 mx-28 mb-20">
+          <form>
             <div className="mb-4">
               <Label htmlFor="name" className="block text-lg font-medium text-[#47523f] mb-2">
                 Name

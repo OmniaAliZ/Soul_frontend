@@ -90,7 +90,7 @@ export function Footer() {
               >
                 Returns & Exchanges
               </Link>
-              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/">
+              <Link className="text-[#eef2ec] hover:text-[#333] dark:hover:text-[#f0f0f0]" to="/faq">
                 FAQs
               </Link>
             </nav>
