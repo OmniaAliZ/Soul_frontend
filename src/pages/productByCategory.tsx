@@ -12,6 +12,8 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select"
+import { useToast } from "@/components/ui/use-toast"
+
 import { Button } from "@/components/ui/button"
 import { NavBar } from "@/components/navBar"
 import { Footer } from "@/components/footer"
@@ -21,6 +23,7 @@ export function ProductByCategory() {
   if (!provider) throw Error("Context is missing")
   const { state, handleAddToCart } = provider
   const { id } = useParams<string>()
+  const { toast } = useToast()
 
   const [selectedQuantity, setSelectedQuantity] = useState(1)
 
@@ -97,17 +100,18 @@ export function ProductByCategory() {
             >
               <div className="relative">
                 <Link className=" hover:no-underline" to={`/products/${product.id}`}>
-                <img
-                  alt={product.name}
-                  className="w-full h-full object-cover rounded-2xl"
-                  height={400}
-                  src={product.image}
-                  style={{
-                    aspectRatio: "400/400",
-                    objectFit: "cover"
-                  }}
-                  width={400}
-                /></Link>
+                  <img
+                    alt={product.name}
+                    className="w-full h-full object-cover rounded-2xl"
+                    height={400}
+                    src={product.image}
+                    style={{
+                      aspectRatio: "400/400",
+                      objectFit: "cover"
+                    }}
+                    width={400}
+                  />
+                </Link>
                 <Link
                   className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md group-hover:bg-gray-100 transition-colors dark:bg-gray-800 dark:group-hover:bg-gray-700"
                   to={`/products/${product.id}`}
@@ -144,6 +148,9 @@ export function ProductByCategory() {
 
                       quantities.map(() => {
                         handleAddToCart(product)
+                      })
+                      toast({
+                        title: `${quantities.length} ${product.name} added to the cart`
                       })
                     }}
                     className="flex-1"

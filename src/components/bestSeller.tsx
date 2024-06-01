@@ -5,6 +5,7 @@ import { Button } from "./ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { GlobalContext } from "@/App"
 import { useContext, useState } from "react"
+import { useToast } from "@/components/ui/use-toast"
 import { Link } from "react-router-dom"
 import { EyeIcon } from "lucide-react"
 
@@ -12,6 +13,7 @@ export function BestSeller() {
   const provider = useContext(GlobalContext)
   if (!provider) throw Error("Context is missing")
   const { state, handleAddToCart } = provider
+  const { toast } = useToast()
 
   const [selectedQuantity, setSelectedQuantity] = useState(1)
 
@@ -115,6 +117,9 @@ export function BestSeller() {
 
                       quantities.map(() => {
                         handleAddToCart(product)
+                      })
+                      toast({
+                        title: `${quantities.length} ${product.name} added to the cart`
                       })
                     }}
                     className="flex-1"

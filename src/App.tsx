@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <ScrollToTop>
-        <Home />
+        <Toaster /> <Home />
       </ScrollToTop>
     )
   },
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
     path: "/products/section/:id",
     element: (
       <ScrollToTop>
-        <ProductByCategory />
+        <Toaster /> <ProductByCategory />
       </ScrollToTop>
     )
   },
