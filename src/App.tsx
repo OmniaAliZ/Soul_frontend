@@ -4,6 +4,7 @@ import { Home } from "./pages/home"
 import { Dashboard } from "./pages/dashboard"
 import { ProductDetails } from "./pages/productDetails"
 import "./App.css"
+import { Toaster } from "@/components/ui/toaster"
 import { createContext, useEffect, useState } from "react"
 import { DecodedUser, Product } from "./types"
 import { Login } from "./pages/login"
@@ -29,123 +30,194 @@ import { PlantCare } from "./pages/plantCare"
 import { PlantingGuide } from "./pages/plantingGuide"
 import { FAQ } from "./pages/faq"
 import { About } from "./pages/about"
+import ScrollToTop from "./lib/scrollToTop"
 // ProductService
 //!!!!!! WHY ALWAYS : Context is missing ERROR ??????????????
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: (
+      <ScrollToTop>
+        <Home />
+      </ScrollToTop>
+    )
   },
   {
     path: "/shipping",
-    element: <Shipping />
+    element: (
+      <ScrollToTop>
+        <Shipping />
+      </ScrollToTop>
+    )
   },
   {
     path: "/return",
-    element: <Return />
+    element: (
+      <ScrollToTop>
+        <Return />
+      </ScrollToTop>
+    )
   },
   {
     path: "/about",
-    element: <About />
+    element: (
+      <ScrollToTop>
+        <About />
+      </ScrollToTop>
+    )
   },
   {
     path: "/products/:id",
-    element: <ProductDetails />
+    element: (
+      <ScrollToTop>
+        <ProductDetails />
+      </ScrollToTop>
+    )
   },
   {
     path: "/products/section/:id",
-    element: <ProductByCategory />
+    element: (
+      <ScrollToTop>
+        <ProductByCategory />
+      </ScrollToTop>
+    )
   },
   {
     path: "/dashboard",
     element: (
-      <PrivateRoute>
-        <Dashboard />
-      </PrivateRoute>
+      <ScrollToTop>
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      </ScrollToTop>
     )
   },
   {
     path: "/dashboard/products",
     element: (
-      <PrivateRoute>
-        <>
-          <AdminNavbar />
-          <AddProduct />
-          <ProductTable />
-          <Footer />
-        </>
-      </PrivateRoute>
+      <ScrollToTop>
+        <PrivateRoute>
+          <>
+            <AdminNavbar />
+            <AddProduct />
+            <ProductTable />
+            <Footer />
+          </>
+        </PrivateRoute>
+      </ScrollToTop>
     )
   },
   {
     path: "/dashboard/users",
     element: (
-      <PrivateRoute>
-        <>
-          <AdminNavbar />
-          <AddUser />
-          <UsersTable />
-          <Footer />
-        </>
-      </PrivateRoute>
+      <ScrollToTop>
+        <PrivateRoute>
+          <>
+            <AdminNavbar />
+            <AddUser />
+            <UsersTable />
+            <Footer />
+          </>
+        </PrivateRoute>
+      </ScrollToTop>
     )
   },
   {
     path: "/dashboard/categories",
     element: (
-      <PrivateRoute>
-        <>
-          <AdminNavbar />
-          <AddCategory />
-          <CategoriesTable />
-          <Footer />
-        </>
-      </PrivateRoute>
+      <ScrollToTop>
+        <PrivateRoute>
+          <>
+            <AdminNavbar />
+            <AddCategory />
+            <CategoriesTable />
+            <Footer />
+          </>
+        </PrivateRoute>
+      </ScrollToTop>
     )
   },
   {
     path: "/profile",
     element: (
-      // <PrivateRoute>
-      <UserProfile />
-      // </PrivateRoute>
+      <ScrollToTop>
+        {/* <PrivateRoute> */}
+        <UserProfile />
+        {/* </PrivateRoute> */}
+      </ScrollToTop>
     )
   },
   {
     path: "/checkout",
-    element: <Checkout />
+    element: (
+      <ScrollToTop>
+        <Checkout />
+      </ScrollToTop>
+    )
   },
   {
     path: "/contact",
-    element: <Contact />
+    element: (
+      <ScrollToTop>
+        <Contact />
+      </ScrollToTop>
+    )
   },
   {
     path: "/care",
-    element: <PlantCare />
+    element: (
+      <ScrollToTop>
+        <PlantCare />
+      </ScrollToTop>
+    )
   },
   {
     path: "/planting",
-    element: <PlantingGuide />
+    element: (
+      <ScrollToTop>
+        <PlantingGuide />
+      </ScrollToTop>
+    )
   },
   {
     path: "/faq",
-    element: <FAQ />
+    element: (
+      <ScrollToTop>
+        <FAQ />
+      </ScrollToTop>
+    )
   },
   {
     path: "/login",
-    element: <Login />
+    element: (
+      <ScrollToTop>
+        <Login />
+      </ScrollToTop>
+    )
   },
   {
     path: "/products",
-    element: <AllProducts />
+    element: (
+      <ScrollToTop>
+        <Toaster /> <AllProducts />
+      </ScrollToTop>
+    )
   },
   {
     path: "/thankyou",
-    element: <Thankyou />
+    element: (
+      <ScrollToTop>
+        <Thankyou />
+      </ScrollToTop>
+    )
   },
   {
     path: "/signup",
-    element: <Signup />
+    element: (
+      <ScrollToTop>
+        <Signup />
+      </ScrollToTop>
+    )
   }
 ])
 type GlobalContextType = {

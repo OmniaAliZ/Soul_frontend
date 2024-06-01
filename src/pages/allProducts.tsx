@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select"
+import { useToast } from "@/components/ui/use-toast"
 import { NavBar } from "@/components/navBar"
 import { Footer } from "@/components/footer"
 
@@ -27,6 +28,7 @@ export function AllProducts() {
   const defaultSearch = searchParams.get("searchBy") || ""
   const [searchBy, setSearchBy] = useState(defaultSearch)
   const [selectedQuantity, setSelectedQuantity] = useState(1)
+  const { toast } = useToast()
 
   const getProducts = async () => {
     try {
@@ -158,6 +160,10 @@ export function AllProducts() {
 
                         quantities.map(() => {
                           handleAddToCart(product)
+                        })
+                        toast({
+                          title: `${quantities.length} ${product.name} added to the cart`
+                          // description:`${quantities.length} ${product.name} added to the cart`
                         })
                       }}
                       className="flex-1"
