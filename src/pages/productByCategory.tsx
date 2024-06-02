@@ -121,7 +121,7 @@ export function ProductByCategory() {
                 </Link>
               </div>
               <div className="p-6 grid gap-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col items-center justify-between">
                   <h3 className="text-xl font-semibold">{product.name}</h3>
                   <span className="text-xl font-semibold">$ {product.price.toFixed(2)}</span>
                 </div>
