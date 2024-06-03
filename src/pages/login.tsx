@@ -2,7 +2,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Link, useNavigate } from "react-router-dom"
-import { EyeIcon, MailIcon } from "lucide-react"
+import { EyeIcon, EyeOffIcon, MailIcon } from "lucide-react"
 import { ChangeEvent, FormEvent, useContext, useState } from "react"
 import api from "@/api"
 import { GlobalContext } from "@/App"
@@ -50,11 +50,14 @@ export function Login() {
       navigate("/")
     }
   }
+
+  const [showPassword, setShowPassword] = useState(false)
+
   return (
     <>
       <NavBar />
       <Separator />
-      <div className="flex flex-col items-center py-14 min-h-fit bg-[url('images/pg.png')] px-4">
+      <div className="flex flex-col items-center py-14 min-h-fit bg-[url('../images/pg.png')] px-4">
         <div className="w-full max-w-md space-y-8">
           <div className="space-y-4 text-center">
             <div className="inline-block rounded-full bg-primary-500 px-4 py-2 text-sm text-[#728b6d]">
@@ -99,10 +102,18 @@ export function Login() {
                   placeholder="Enter your password"
                   required
                   onChange={handleChange}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                 />
-                <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                  <EyeIcon className="h-5 w-5 text-gray-500 hover:text-gray-700 dark:text-gray-400" />
+                <div
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-4"
+                >
+                  {showPassword === true && (
+                    <EyeIcon className="h-5 w-5 text-gray-500 hover:text-gray-700 dark:text-gray-400" />
+                  )}
+                  {showPassword === false && (
+                    <EyeOffIcon className="h-5 w-5 text-gray-500 hover:text-gray-700 dark:text-gray-400" />
+                  )}
                 </div>
               </div>
             </div>
