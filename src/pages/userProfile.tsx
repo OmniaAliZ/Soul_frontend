@@ -21,6 +21,7 @@ import { Address, User } from "@/types"
 // import { Underline } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { Footer } from "@/components/footer"
+import { DeleteAddress } from "@/components/deleteAddress"
 
 //!!!!!!!!  ADD DELETE ADDRESS FEATURE
 
@@ -77,7 +78,7 @@ export function UserProfile() {
     country: "",
     city: "",
     street: "",
-    zip_code: undefined
+    zip_code: ""
   })
 
   const postAddress = async () => {
@@ -104,8 +105,10 @@ export function UserProfile() {
       country: "",
       city: "",
       street: "",
-      zip_code: undefined
+      zip_code: ""
     })
+    console.log("Handled");
+    
   }
   const handleAddressSubmit = async () => {
     await postAddress()
@@ -124,7 +127,7 @@ export function UserProfile() {
   }
 
   const { data: addresses } = useQuery<Address[]>({
-    queryKey: ["products", user?.id],
+    queryKey: ["addresses", user?.id],
     queryFn: () => getAddressesById(user?.id)
   })
 
@@ -217,7 +220,7 @@ export function UserProfile() {
               <div className="space-y-2">
                 <Label htmlFor="country">Country</Label>
                 <Input
-                  defaultValue={address.country}
+                  value={address.country}
                   onChange={handleAddressChange}
                   id="country"
                   name="country"
@@ -228,7 +231,7 @@ export function UserProfile() {
               <div className="space-y-2">
                 <Label htmlFor="city">City</Label>
                 <Input
-                  defaultValue={address.city}
+                  value={address.city}
                   onChange={handleAddressChange}
                   id="city"
                   name="city"
@@ -239,7 +242,7 @@ export function UserProfile() {
               <div className="space-y-2">
                 <Label htmlFor="street">Street</Label>
                 <Input
-                  defaultValue={address.street}
+                  value={address.street}
                   onChange={handleAddressChange}
                   id="street"
                   name="street"
@@ -250,7 +253,7 @@ export function UserProfile() {
               <div className="space-y-2">
                 <Label htmlFor="zip_code">Zip-code</Label>
                 <Input
-                  defaultValue={address.zip_code}
+                  value={address.zip_code}
                   onChange={handleAddressChange}
                   id="zip_code"
                   name="zip_code"
@@ -357,6 +360,9 @@ export function UserProfile() {
                     <Label htmlFor="zip_code">Zip-code: {address.zip_code}</Label>
                   </div>
                 </CardContent>
+                <CardFooter>
+                  <DeleteAddress address={address} />
+                </CardFooter>
               </Card>
             )
           })}

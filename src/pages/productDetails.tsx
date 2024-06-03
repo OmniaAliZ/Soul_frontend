@@ -47,7 +47,7 @@ export function ProductDetails() {
   })
 
   if (isPending) {
-    return <p>Data is fetching ....</p>
+    return <>Data is loading ....</>
   }
   if (isError) {
     return <span>Error: {error.message}</span>
@@ -155,7 +155,6 @@ export function ProductDetails() {
           />
         </div>
       </div>
-
       {/*  view products under */}
 
       {/* <section className="w-full py-12">

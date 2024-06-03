@@ -133,10 +133,10 @@ button,
   transition: background-color 0.3s ease;
 }
 
-button:hover,
+/* button:hover,
 .btn:hover {
-  /* background-color: #145a32; */
-}
+  background-color: #145a32;
+} */
 
 /* Lists */
 ul,
