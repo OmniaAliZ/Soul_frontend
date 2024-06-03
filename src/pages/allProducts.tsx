@@ -162,8 +162,8 @@ export function AllProducts() {
                           handleAddToCart(product)
                         })
                         toast({
-                          title: `${quantities.length} ${product.name} added to the cart`
-                          // description:`${quantities.length} ${product.name} added to the cart`
+                          // title: `${quantities.length} ${product.name} added to the cart`
+                          description: `${quantities.length} ${product.name} added to the cart`
                         })
                       }}
                       className="flex-1"

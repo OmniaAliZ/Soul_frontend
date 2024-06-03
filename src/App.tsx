@@ -70,7 +70,7 @@ const router = createBrowserRouter([
     path: "/products/:id",
     element: (
       <ScrollToTop>
-        <ProductDetails />
+        <Toaster /> <ProductDetails />
       </ScrollToTop>
     )
   },

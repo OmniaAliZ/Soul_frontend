@@ -10,6 +10,7 @@ import {
   SelectContent,
   Select
 } from "@/components/ui/select"
+import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button"
 import { FormEvent, useContext, useState } from "react"
 import { GlobalContext } from "@/App"
@@ -21,6 +22,7 @@ export function ProductDetails() {
   const provider = useContext(GlobalContext)
   if (!provider) throw Error("Context is missing")
   const { state, handleAddToCart } = provider
+  const { toast } = useToast()
 
   const [selectedQuantity, setSelectedQuantity] = useState(1)
   const { id } = useParams<string>()
@@ -60,6 +62,11 @@ export function ProductDetails() {
 
     quantities.map(() => {
       handleAddToCart(data)
+    })
+
+    toast({
+      // title: `${quantities.length} ${product.name} added to the cart`
+      description: `${quantities.length} ${data.name} added to the cart`
     })
   }
   const handleChange = (value: string) => {
