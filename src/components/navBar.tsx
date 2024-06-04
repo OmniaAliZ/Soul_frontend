@@ -145,7 +145,7 @@ export function NavBar() {
                   <img
                     alt="Avatar"
                     className="rounded-full bg-cover"
-                    src="images/avatar.jpg"
+                    src="../images/avatar.jpg"
                     style={{
                       aspectRatio: "32/32",
                       objectFit: "cover"
@@ -155,9 +155,9 @@ export function NavBar() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center">
-                <DropdownMenuLabel className=" hover:no-underline text-[#47523f]">
-                  My Account
-                </DropdownMenuLabel>
+                <Link className=" hover:no-underline text-[#47523f]" to="/account">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                </Link>
                 <DropdownMenuSeparator />
                 <Link className=" hover:no-underline text-[#47523f]" to="/profile">
                   <DropdownMenuItem>Settings</DropdownMenuItem>

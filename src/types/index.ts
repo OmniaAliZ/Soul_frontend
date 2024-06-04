@@ -32,7 +32,7 @@ export type Order = {
   userId: string
   addressId: string
   status: string //?
-  orderDate: Date //?
+  orderDate: string //?
   totalPrice: number
 }
 // export type ProductWithCat = {

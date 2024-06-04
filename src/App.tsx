@@ -31,6 +31,7 @@ import { PlantingGuide } from "./pages/plantingGuide"
 import { FAQ } from "./pages/faq"
 import { About } from "./pages/about"
 import ScrollToTop from "./lib/scrollToTop"
+import { UserAccount } from "./pages/userAccount"
 // ProductService
 //!!!!!! WHY ALWAYS : Context is missing ERROR ??????????????
 const router = createBrowserRouter([
@@ -134,6 +135,14 @@ const router = createBrowserRouter([
             <Footer />
           </>
         </PrivateRoute>
+      </ScrollToTop>
+    )
+  },
+  {
+    path: "/account",
+    element: (
+      <ScrollToTop>
+        <UserAccount />
       </ScrollToTop>
     )
   },

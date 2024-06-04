@@ -209,7 +209,7 @@ export function Checkout() {
                 <RadioGroup
                   aria-label="Address"
                   onValueChange={handleRadioChange}
-                  defaultValue={addresses[0].id}
+                  defaultValue={addresses[0].id} // using  value ??? 
                   defaultChecked
                   className="grid gap-4 my-4"
                 >
