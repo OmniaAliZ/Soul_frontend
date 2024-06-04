@@ -134,7 +134,7 @@ export function UserProfile() {
   return (
     <>
       <NavBar />
-      <div className="flex flex-col items-center justify-center gap-6 px-4 py-12 md:px-6 lg:flex-row lg:gap-12">
+      {/* <div className="flex flex-col items-center justify-center gap-6 px-4 py-12 md:px-6 lg:flex-row lg:gap-12">
         <div className="flex flex-col items-center gap-4">
           <Avatar className="h-24 w-24 border-4 border-gray-100 dark:border-gray-800">
             <AvatarImage alt="User Avatar" src="images/avatar.jpg" />
@@ -142,18 +142,18 @@ export function UserProfile() {
           </Avatar>
           <div className="text-center lg:text-left">
             <h1 className="text-2xl text-center font-bold">{user?.fullName}</h1>
-            {/* <p className="text-gray-500 dark:text-gray-400">Plant enthusiast and nature lover</p> */}
+            <p className="text-gray-500 dark:text-gray-400">Plant enthusiast and nature lover</p>
           </div>
         </div>
-        {/* <div className="prose prose-lg max-w-none dark:prose-invert">
+        <div className="prose prose-lg max-w-none dark:prose-invert">
           <p>
             Hi, I am John, and I am passionate about all things plants! From succulents to tropical
             foliage, I love learning about the unique characteristics and care requirements of
             different plant species. My goal is to create a lush, thriving indoor oasis and share my
             knowledge with others.
           </p>
-        </div> */}
-      </div>
+        </div>
+      </div> */}
       <div className="container mx-auto grid gap-12 px-4 py-12 md:px-6">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           <Card>
