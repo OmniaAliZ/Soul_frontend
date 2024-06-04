@@ -11,6 +11,7 @@ import { Footer } from "@/components/footer"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { Link } from "react-router-dom"
+import { CreditCardIcon, DollarSignIcon, WalletCardsIcon } from "lucide-react"
 
 export function Checkout() {
   const provider = useContext(GlobalContext)
@@ -203,20 +204,25 @@ export function Checkout() {
             <div className="grid gap-2">
               <Separator />
               <Label className="mt-3 text-left font-bold" htmlFor="address">
-                Address :
+                Address
               </Label>
               {addresses && addresses?.length > 0 && (
                 <RadioGroup
                   aria-label="Address"
                   onValueChange={handleRadioChange}
-                  defaultValue={addresses[0].id} // using  value ??? 
+                  defaultValue={addresses[0].id} // using  value ???
                   defaultChecked
                   className="grid gap-4 my-4"
                 >
                   {addresses?.map((address) => {
                     return (
                       <div key={address.id} className="flex items-center gap-2">
-                        <RadioGroupItem id={address.id} value={address.id} />
+                        <RadioGroupItem
+                          checked={selectedAddress === address.id}
+                          onChange={() => handleRadioChange(address.id)}
+                          id={address.id}
+                          value={address.id}
+                        />
                         <Label
                           className="flex items-center gap-2 cursor-pointer"
                           htmlFor={address.id}
@@ -266,8 +272,77 @@ export function Checkout() {
             <div className="grid gap-2">
               <Separator />
               <Label className="mt-3 text-left font-bold" htmlFor="address">
-                Address :
+                Payment Method
               </Label>
+            </div>
+            {/* <div className="grid gap-4">
+            <Label className="font-medium">Payment Method</Label>
+            <RadioGroup aria-label="Payment Method" className="grid grid-cols-3 gap-4">
+              <div className="flex items-center gap-2">
+                <RadioGroupItem value="credit-card" id="credit-card" className="peer sr-only" />
+                <Label
+                  htmlFor="credit-card"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-gray-100 bg-white p-4 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
+                >
+                  <CreditCardIcon className="mb-3 h-6 w-6" />
+                  Credit Card
+                </Label>
+              </div>
+              <div className="flex items-center gap-2">
+                <RadioGroupItem value="paypal" id="paypal" className="peer sr-only" />
+                <Label
+                  htmlFor="paypal"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-gray-100 bg-white p-4 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
+                >
+                  <WalletCardsIcon className="mb-3 h-6 w-6" />
+                  PayPal
+                </Label>
+              </div>
+              <div className="flex items-center gap-2">
+                <RadioGroupItem value="apple-pay" id="apple-pay" className="peer sr-only" />
+                <Label
+                  htmlFor="apple-pay"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-gray-100 bg-white p-4 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
+                >
+                  <DollarSignIcon className="mb-3 h-6 w-6" />
+                  Apple Pay
+                </Label>
+              </div>
+            </RadioGroup>
+          </div> */}
+            <div className="mt-4 space-y-4">
+              <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-4">
+                <div>
+                  <RadioGroupItem value="card" id="card" className="peer sr-only" />
+                  <Label
+                    htmlFor="card"
+                    className="flex flex-col items-center justify-between rounded-md border-2 border-gray-100 bg-white p-4 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
+                  >
+                    <CreditCardIcon className="mb-3 h-6 w-6" />
+                    Card
+                  </Label>
+                </div>
+                <div>
+                  <RadioGroupItem value="paypal" id="paypal" className="peer sr-only" />
+                  <Label
+                    htmlFor="paypal"
+                    className="flex flex-col items-center justify-between rounded-md border-2 border-gray-100 bg-white p-4 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
+                  >
+                    <WalletCardsIcon className="mb-3 h-6 w-6" />
+                    PayPal
+                  </Label>
+                </div>
+                <div>
+                  <RadioGroupItem value="apple" id="apple" className="peer sr-only" />
+                  <Label
+                    htmlFor="apple"
+                    className="flex flex-col items-center justify-between rounded-md border-2 border-gray-100 bg-white p-4 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
+                  >
+                    <DollarSignIcon className="mb-3 h-6 w-6" />
+                    Apple Pay
+                  </Label>
+                </div>
+              </RadioGroup>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="grid gap-2">
