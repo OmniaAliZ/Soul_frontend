@@ -32,17 +32,39 @@ export function Signup() {
       ...user,
       [name]: value
     })
+    if (e.target.name === "password") {
+      setPassword(e.target.value)
+    }
+    if (e.target.name === "Cpassword") {
+      setPasswordConfirmation(e.target.value)
+    }
+
+    console.log("PW", password)
+    console.log(" CPW", passwordConfirmation)
+
     console.log(name, ": ", value)
   }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const response = await handleSignup()
-    if (response) {
-      navigate("/login")
+    if (password === passwordConfirmation) {
+      setConfirm(true)
+    }
+    if (password !== passwordConfirmation) {
+      setConfirm(false)
+    }
+    if (password === passwordConfirmation) {
+      const response = await handleSignup()
+      if (response) {
+        navigate("/login")
+      }
     }
   }
   const [showPassword, setShowPassword] = useState(false)
-
+  const [showCPassword, setShowCPassword] = useState(false)
+  const [password, setPassword] = useState("")
+  const [passwordConfirmation, setPasswordConfirmation] = useState("")
+  const [confirm, setConfirm] = useState(true)
   return (
     <>
       <NavBar />
@@ -109,7 +131,10 @@ export function Signup() {
                   name="password"
                   placeholder="Enter a secure password"
                   required
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    // setPassword(e.target.value)
+                    handleChange(e)
+                  }}
                   type={showPassword ? "text" : "password"}
                 />
                 <div
@@ -124,6 +149,35 @@ export function Signup() {
                   )}
                 </div>
               </div>
+              <Label className="text-[#47523f]" htmlFor="password">
+                Confirm Password
+              </Label>
+              <div className="relative">
+                <Input
+                  className="rounded-full border-2 border-gray-300 bg-gray-50 px-4 py-3 pr-10 text-gray-900 focus:border-primary-500 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                  id="Cpassword"
+                  name="Cpassword"
+                  placeholder="Enter password confirmation"
+                  required
+                  onChange={(e) => {
+                    // setPasswordConfirmation(e.target.value)
+                    handleChange(e)
+                  }}
+                  type={showCPassword ? "text" : "password"}
+                />
+                <div
+                  onClick={() => setShowCPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-4"
+                >
+                  {showCPassword === true && (
+                    <EyeIcon className="h-5 w-5 text-gray-500 hover:text-gray-700 dark:text-gray-400" />
+                  )}
+                  {showCPassword === false && (
+                    <EyeOffIcon className="h-5 w-5 text-gray-500 hover:text-gray-700 dark:text-gray-400" />
+                  )}
+                </div>
+              </div>
+              {!confirm && <p>password does not match</p>}
             </div>
 
             <div className="space-y-3">
